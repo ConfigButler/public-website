@@ -30,18 +30,22 @@ a:hover {
 	text-decoration: underline;
 }
 h1 {
-	color: #4ED6A2;
+	color: #ffffff;
 	font-size: 3rem;
 	font-weight: 700;
 	letter-spacing: 0.05em;
-	margin: 1rem;
+	margin: 2rem;
 	text-shadow: 2px 4px 0 #22223b, 0 2px 12px #0002;
 	font-family: 'Montserrat', 'Space Grotesk', system-ui, sans-serif;
+	text-align: center; /* Center the heading */
+	display: block;
 }
+
 img {
 	width: 300px;
 	height: auto;
-	margin: 2rem;
+	margin: 1rem auto;   /* Center horizontally */
+	display: block;
 }
 .intro {
   max-width: 36rem;

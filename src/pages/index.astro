@@ -1,19 +1,17 @@
 ---
+import Layout from '../layouts/Layout.astro';
 ---
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ConfigButler is comming soon</title>
-    <link rel="stylesheet" href="/styles/layout.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <img src="/logo_owl.png" alt="Logo" />
-    <h1>ConfigButler</h1>
-    <p class="intro">
-      You build software: meet ConfigButler. Your intelligent assistant that helps you to build fast and beautiful configuration. Comming soon!
-    </p>
-  </body>
-</html>
+<Layout title="ConfigButler is coming soon">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Space+Grotesk:wght@400;700&display=swap"
+		rel="stylesheet"
+		slot="head"
+	/>
+	<img src="/logo_owl.png" alt="Logo" />
+	<h1>ConfigButler</h1>
+	<p class="intro">
+		You build software: are you tired of complex, error-prone, distracting configurations? ConfigButler helps you build,
+		validate, and manage them with ease. Save time and deliver robust configs
+		your customers will love. Coming soon!
+	</p>
+</Layout>
