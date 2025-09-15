@@ -6,7 +6,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-between;
 	background: #D6A24E;
 	font-family: system-ui, sans-serif;
 	margin: 0;
@@ -101,5 +101,36 @@ img {
   transition: background 0.3s;
 }
 .subscribe-form button:hover {
-  background: #333;
+   background: #333;
+}
+
+footer {
+	padding: 1.5rem 0;
+	text-align: center;
+	width: 100%;
+}
+
+.social-links {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1.5rem;
+}
+
+.social-links a {
+	display: inline-block;
+	transition: transform 0.3s;
+}
+
+.social-links a:hover {
+	transform: scale(1.1);
+}
+
+.social-links svg {
+	fill: #ffffff;
+	transition: fill 0.3s;
+}
+
+.social-links a:hover svg {
+	fill: #22223b;
 }
