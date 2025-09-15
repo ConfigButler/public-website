@@ -9,9 +9,30 @@ import Layout from '../layouts/Layout.astro';
 	/>
 	<img src="/logo_owl.png" alt="Logo" />
 	<h1>ConfigButler</h1>
-	<p class="intro">
-		You build software: are you tired of complex, error-prone, distracting configurations? ConfigButler helps you build,
-		validate, and manage them with ease. Save time and deliver robust configs
-		your customers will love. Coming soon!
-	</p>
+	<div class="cards">
+		<div class="card">
+			<p class="intro-text">
+				You build software: are you tired of complex, error-prone, distracting configurations? ConfigButler helps you build,
+				validate, and manage them with ease. Save time and deliver robust configs
+				your customers will love. Coming soon! 🚀
+			</p>
+		</div>
+		<div class="card">
+			<div class="intro-text" id="form-full">
+				Leave your e-mail address so that we can keep you posted!			
+				<form class="subscribe-form" id="form">
+					<input type="hidden" name="access_key" value="bd1aae6e-bd81-4bb9-b2c6-d8502a024110" />
+					<input type="checkbox" name="botcheck" id="" style="display: none;">
+					<input type="email" name="email" placeholder="Enter your email" required />
+					<button type="submit">Keep me informed</button>
+				</form>
+			</div>
+			<div class="intro-text" id="form-result" style="display: none;">
+				E-mail noted! Thanks for your interest. ✨
+			</div>
+		</div>
+	</div>
+	<script>
+		import '../form.js';
+	</script>
 </Layout>
