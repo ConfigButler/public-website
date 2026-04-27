@@ -5,6 +5,7 @@ import { Background } from '@vue-flow/background'
 import { Controls } from '@vue-flow/controls'
 import type { IntentExample } from '../content/home'
 import FlowNode from './flow/FlowNode.vue'
+import FlowEdge from './flow/FlowEdge.vue'
 
 import '@vue-flow/core/dist/style.css'
 import '@vue-flow/core/dist/theme-default.css'
@@ -17,18 +18,17 @@ const props = defineProps<{
 const activeIndex = ref(0)
 const isCompact = ref(false)
 const mediaQuery = ref<MediaQueryList | null>(null)
+const pulseKey = ref(0)
 
 const nodeTypes = {
 	flowNode: FlowNode,
 }
 
-const activeExample = computed(() => props.examples[activeIndex.value] ?? props.examples[0])
+const edgeTypes = {
+	pulseEdge: FlowEdge,
+}
 
-const sources = [
-	{ id: 'human', label: 'Human' },
-	{ id: 'agent', label: 'AI agent' },
-	{ id: 'automation', label: 'Automation' },
-] as const
+const activeExample = computed(() => props.examples[activeIndex.value] ?? props.examples[0])
 
 const baseStyle = {
 	background: 'transparent',
@@ -41,79 +41,76 @@ const desktopNodes = computed<Node[]>(() => {
 
 	return [
 		{
-			id: 'request',
+			id: 'screen',
 			type: 'flowNode',
-			position: { x: 0, y: 20 },
-			style: { ...baseStyle, width: '332px' },
+			position: { x: 0, y: 96 },
+			style: { ...baseStyle, width: '240px' },
 			data: {
-				kind: 'code',
+				kind: 'screen',
 				label: example.sourceLabel,
-				title: 'Intent payload',
-				subtitle: 'One safe input instead of direct repo edits, tickets, or brittle admin clicks.',
+				title: example.screenTitle,
+				subtitle: 'A product or platform screen captures the allowed change.',
+				formFields: example.screenFields,
+				action: example.screenAction,
+			},
+		},
+		{
+			id: 'api',
+			type: 'flowNode',
+			position: { x: 280, y: 112 },
+			style: { ...baseStyle, width: '240px' },
+			data: {
+				kind: 'api',
+				label: 'Typed API call',
+				title: 'The change becomes one request',
+				subtitle: 'No repo path knowledge required.',
 				code: example.request,
 			},
 		},
 		{
-			id: 'frontdoor',
+			id: 'control',
 			type: 'flowNode',
-			position: { x: 380, y: 40 },
-			style: { ...baseStyle, width: '250px' },
+			position: { x: 560, y: 28 },
+			style: { ...baseStyle, width: '320px' },
 			data: {
 				kind: 'control',
-				label: 'ConfigButler',
-				title: 'API + GUI',
-				lines: ['Typed operations', 'Safe self-service', 'One controlled front door'],
-			},
-		},
-		{
-			id: 'validation',
-			type: 'flowNode',
-			position: { x: 690, y: 20 },
-			style: { ...baseStyle, width: '312px' },
-			data: {
-				kind: 'validation',
-				label: 'Before write-back',
-				title: 'Typed intent + validation + policy',
+				label: 'ConfigButler control plane',
+				title: 'Validation and conversion happen here',
 				checks: example.validations,
-			},
-		},
-		{
-			id: 'output',
-			type: 'flowNode',
-			position: { x: 0, y: 330 },
-			style: { ...baseStyle, width: '470px' },
-			data: {
-				kind: 'code',
-				label: 'Accepted change',
-				title: 'Generated YAML',
-				subtitle: 'The resulting desired state is explicit before it becomes part of the repo.',
+				codeLabel: 'Desired state preview',
 				code: example.output,
 			},
 		},
 		{
 			id: 'git',
 			type: 'flowNode',
-			position: { x: 530, y: 350 },
-			style: { ...baseStyle, width: '340px' },
+			position: { x: 920, y: 96 },
+			style: { ...baseStyle, width: '250px' },
 			data: {
 				kind: 'commit',
-				label: 'Git-backed outcome',
-				title: 'Commit or pull request',
+				label: 'Git-backed output',
+				title: 'Commits pile up in the customer repo',
 				hash: example.commitHash,
 				message: example.commitMessage,
+				author: example.commitAuthor,
+				date: example.commitDate,
+				branch: example.commitBranch,
 				path: example.commitPath,
+				changedFiles: example.changedFiles,
+				diff: example.commitDiff,
+				commits: example.commitStack,
 				status: example.status,
 			},
 		},
 		{
 			id: 'workflow',
 			type: 'flowNode',
-			position: { x: 930, y: 365 },
-			style: { ...baseStyle, width: '270px' },
+			position: { x: 1210, y: 112 },
+			style: { ...baseStyle, width: '250px' },
 			data: {
 				kind: 'workflow',
-				label: 'Existing workflow',
-				title: 'Flux, Argo CD, review, or approval continues unchanged',
+				label: 'Customer GitOps flow',
+				title: 'The normal reconciler picks it up',
 				note: example.statusNote,
 			},
 		},
@@ -125,77 +122,74 @@ const compactNodes = computed<Node[]>(() => {
 
 	return [
 		{
-			id: 'request',
+			id: 'screen',
 			type: 'flowNode',
 			position: { x: 0, y: 0 },
 			style: { ...baseStyle, width: '290px' },
 			data: {
-				kind: 'code',
+				kind: 'screen',
 				label: example.sourceLabel,
-				title: 'Intent payload',
+				title: example.screenTitle,
+				formFields: example.screenFields,
+				action: example.screenAction,
+			},
+		},
+		{
+			id: 'api',
+			type: 'flowNode',
+			position: { x: 0, y: 292 },
+			style: { ...baseStyle, width: '290px' },
+			data: {
+				kind: 'api',
+				label: 'Typed API call',
+				title: 'The change becomes one request',
 				code: example.request,
 			},
 		},
 		{
-			id: 'frontdoor',
+			id: 'control',
 			type: 'flowNode',
-			position: { x: 18, y: 280 },
-			style: { ...baseStyle, width: '254px' },
+			position: { x: 0, y: 598 },
+			style: { ...baseStyle, width: '290px' },
 			data: {
 				kind: 'control',
-				label: 'ConfigButler',
-				title: 'API + GUI',
-				lines: ['Typed operations', 'Safe self-service', 'One controlled front door'],
-			},
-		},
-		{
-			id: 'validation',
-			type: 'flowNode',
-			position: { x: 0, y: 520 },
-			style: { ...baseStyle, width: '290px' },
-			data: {
-				kind: 'validation',
-				label: 'Before write-back',
-				title: 'Validation + policy',
+				label: 'ConfigButler control plane',
+				title: 'Validation and conversion',
 				checks: example.validations,
-			},
-		},
-		{
-			id: 'output',
-			type: 'flowNode',
-			position: { x: 0, y: 820 },
-			style: { ...baseStyle, width: '290px' },
-			data: {
-				kind: 'code',
-				label: 'Accepted change',
-				title: 'Generated YAML',
+				codeLabel: 'Desired state preview',
 				code: example.output,
 			},
 		},
 		{
 			id: 'git',
 			type: 'flowNode',
-			position: { x: 0, y: 1150 },
+			position: { x: 0, y: 1062 },
 			style: { ...baseStyle, width: '290px' },
 			data: {
 				kind: 'commit',
-				label: 'Git-backed outcome',
-				title: 'Commit or pull request',
+				label: 'Git-backed output',
+				title: 'Commits pile up in the customer repo',
 				hash: example.commitHash,
 				message: example.commitMessage,
+				author: example.commitAuthor,
+				date: example.commitDate,
+				branch: example.commitBranch,
 				path: example.commitPath,
+				changedFiles: example.changedFiles,
+				diff: example.commitDiff,
+				commits: example.commitStack,
 				status: example.status,
 			},
 		},
 		{
 			id: 'workflow',
 			type: 'flowNode',
-			position: { x: 10, y: 1450 },
-			style: { ...baseStyle, width: '270px' },
+			position: { x: 0, y: 1390 },
+			style: { ...baseStyle, width: '290px' },
 			data: {
 				kind: 'workflow',
-				label: 'Existing workflow',
-				title: 'Review, approval, and reconciliation continue',
+				label: 'Customer GitOps flow',
+				title: 'The normal reconciler picks it up',
 				note: example.statusNote,
 			},
 		},
@@ -207,19 +201,17 @@ const nodes = computed(() => (isCompact.value ? compactNodes.value : desktopNode
 const edges = computed<Edge[]>(() => {
 	if (isCompact.value) {
 		return [
-			mainEdge('request', 'frontdoor', 'bottom', 'top'),
-			mainEdge('frontdoor', 'validation', 'bottom', 'top'),
-			mainEdge('validation', 'output', 'bottom', 'top'),
-			mainEdge('output', 'git', 'bottom', 'top'),
+			mainEdge('screen', 'api', 'bottom', 'top'),
+			mainEdge('api', 'control', 'bottom', 'top'),
+			mainEdge('control', 'git', 'bottom', 'top'),
 			mainEdge('git', 'workflow', 'bottom', 'top'),
 		]
 	}
 
 	return [
-		mainEdge('request', 'frontdoor', 'right', 'left'),
-		mainEdge('frontdoor', 'validation', 'right', 'left'),
-		mainEdge('validation', 'output', 'bottom', 'right'),
-		mainEdge('output', 'git', 'right', 'left'),
+		mainEdge('screen', 'api', 'right', 'left'),
+		mainEdge('api', 'control', 'right', 'left'),
+		mainEdge('control', 'git', 'right', 'left'),
 		mainEdge('git', 'workflow', 'right', 'left'),
 	]
 })
@@ -231,9 +223,11 @@ function mainEdge(source: string, target: string, sourceHandle: string, targetHa
 		target,
 		sourceHandle,
 		targetHandle,
-		type: 'smoothstep',
-		animated: true,
+		type: 'pulseEdge',
 		markerEnd: MarkerType.ArrowClosed,
+		data: {
+			pulseKey: pulseKey.value,
+		},
 		style: {
 			stroke: '#d6a24e',
 			strokeWidth: 2,
@@ -247,6 +241,7 @@ function syncMode() {
 
 function setExample(index: number) {
 	activeIndex.value = index
+	pulseKey.value += 1
 }
 
 onMounted(() => {
@@ -273,8 +268,8 @@ onBeforeUnmount(() => {
 	<div class="workflow-shell">
 		<div class="workflow-shell__header">
 			<div>
-				<p class="workflow-shell__eyebrow">Intent to Commit</p>
-				<h2 class="workflow-shell__title">A clear workflow, with room to breathe</h2>
+				<p class="workflow-shell__eyebrow">Expected flow</p>
+				<h2 class="workflow-shell__title">Screen edit to repo commit to customer GitOps</h2>
 			</div>
 			<div class="workflow-shell__tabs" role="tablist" aria-label="Workflow examples">
 				<button
@@ -292,23 +287,13 @@ onBeforeUnmount(() => {
 			</div>
 		</div>
 
-		<div class="workflow-shell__sources" aria-label="Supported request sources">
-			<span
-				v-for="source in sources"
-				:key="source.id"
-				class="workflow-shell__source"
-				:class="{ 'is-active': source.id === activeExample.source }"
-			>
-				{{ source.label }}
-			</span>
-		</div>
-
 		<div class="workflow-shell__canvas" :class="{ 'is-compact': isCompact }">
 			<VueFlow
 				class="workflow-flow"
 				:nodes="nodes"
 				:edges="edges"
 				:node-types="nodeTypes"
+				:edge-types="edgeTypes"
 				:nodes-draggable="false"
 				:nodes-connectable="false"
 				:elements-selectable="false"
@@ -357,15 +342,13 @@ onBeforeUnmount(() => {
 	letter-spacing: -0.03em;
 }
 
-.workflow-shell__tabs,
-.workflow-shell__sources {
+.workflow-shell__tabs {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 10px;
 }
 
-.workflow-shell__tab,
-.workflow-shell__source {
+.workflow-shell__tab {
 	display: inline-flex;
 	align-items: center;
 	min-height: 38px;
@@ -384,15 +367,14 @@ onBeforeUnmount(() => {
 	transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
 }
 
-.workflow-shell__tab.is-active,
-.workflow-shell__source.is-active {
+.workflow-shell__tab.is-active {
 	border-color: rgba(214, 162, 78, 0.24);
 	background: rgba(214, 162, 78, 0.12);
 	color: #fafafa;
 }
 
 .workflow-shell__canvas {
-	height: 720px;
+	height: 460px;
 	border-radius: 28px;
 	border: 1px solid rgba(255, 255, 255, 0.1);
 	background:
@@ -402,7 +384,7 @@ onBeforeUnmount(() => {
 }
 
 .workflow-shell__canvas.is-compact {
-	height: 1160px;
+	height: 1710px;
 }
 
 .workflow-flow {
@@ -443,11 +425,7 @@ onBeforeUnmount(() => {
 	}
 
 	.workflow-shell__canvas {
-		height: 1080px;
-	}
-
-	.workflow-shell__canvas.is-compact {
-		height: 1080px;
+		height: 1710px;
 	}
 }
 </style>
