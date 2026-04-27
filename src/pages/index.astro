@@ -1,38 +1,244 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import IntentToCommit from '../components/IntentToCommit.astro';
+import { home } from '../content/home';
 ---
-<Layout title="ConfigButler is coming soon">
+
+<Layout title={home.title} description={home.description}>
+	<link rel="preconnect" href="https://fonts.googleapis.com" slot="head" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin slot="head" />
 	<link
-		href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Space+Grotesk:wght@400;700&display=swap"
+		href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap"
 		rel="stylesheet"
 		slot="head"
 	/>
-	<img src="/logo_owl.png" alt="Logo" />
-	<h1>ConfigButler</h1>
-	<div class="cards">
-		<div class="card">
-			<p class="intro-text">
-				You build software: are you tired of complex, error-prone, distracting configurations? ConfigButler helps you build,
-				validate, and manage them with ease. Save time and deliver robust configs
-				your customers will love. Coming soon! 🚀
+	<div class="page">
+		<header class="topbar">
+			<a class="brand" href="#top" aria-label="ConfigButler home">
+				<span class="brand__mark">CB</span>
+				<span class="brand__text">
+					<strong>ConfigButler</strong>
+					<span>{home.tagline}</span>
+				</span>
+			</a>
+			<nav class="topnav" aria-label="Primary">
+				{home.nav.map((item) => (
+					<a href={item.href}>{item.label}</a>
+				))}
+			</nav>
+			<a class="button button--ghost topbar__cta" href={home.primaryCta.href}>{home.primaryCta.label}</a>
+		</header>
+
+		<section class="hero" id="top">
+			<div class="hero__copy">
+				<div class="hero__badge">{home.tagline}</div>
+				<p class="hero__eyebrow">API-first. Agent-ready. Git-recorded.</p>
+				<h1>{home.headline}</h1>
+				<p class="hero__lede">{home.subheadline}</p>
+				<div class="hero__actions">
+					<a class="button button--primary" href={home.primaryCta.href}>{home.primaryCta.label}</a>
+					<a class="button button--secondary" href={home.secondaryCta.href}>{home.secondaryCta.label}</a>
+				</div>
+				<p class="hero__supporting">
+					ConfigButler does not replace GitOps. It gives GitOps a better front door.
+				</p>
+			</div>
+
+			<div class="hero__visual">
+				<IntentToCommit examples={home.intentExamples} />
+			</div>
+		</section>
+
+		<section class="page-section" id="problem">
+			<div class="section-heading">
+				<p class="section-kicker">Problem</p>
+				<h2>Configuration is still stuck in the wrong places</h2>
+				<p class="section-lede">
+					Important configuration is spread across Git repositories, SaaS admin screens, YAML files, dashboards, scripts, and ticket-driven workflows.
+				</p>
+			</div>
+			<div class="problem-grid">
+				<div class="problem-grid__copy">
+					<p>That creates a painful choice:</p>
+					<ul class="bullet-list">
+						{home.problemChoices.map((item) => (
+							<li>{item}</li>
+						))}
+					</ul>
+				</div>
+				<div class="problem-grid__panel">
+					<p class="quote-card">
+						ConfigButler provides a safer control layer for configuration.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="page-section" id="solution">
+			<div class="section-heading">
+				<p class="section-kicker">Solution</p>
+				<h2>One controlled front door for configuration</h2>
+				<p class="section-lede">
+					ConfigButler exposes configuration as typed intent.
+				</p>
+			</div>
+			<p class="section-body">
+				Humans can use a clean GUI. Automation can use an API. AI agents get a safe interface designed for action, not guesswork.
 			</p>
-		</div>
-		<div class="card">
-			<div class="intro-text" id="form-full">
-				Leave your e-mail address so that we can keep you posted!			
-				<form class="subscribe-form" id="form">
-					<input type="hidden" name="access_key" value="bd1aae6e-bd81-4bb9-b2c6-d8502a024110" />
-					<input type="checkbox" name="botcheck" id="" style="display: none;">
-					<input type="email" name="email" placeholder="Enter your email" required />
-					<button type="submit">Keep me informed</button>
-				</form>
+			<p class="section-body">
+				Behind the scenes, ConfigButler validates the request, applies policy, and records the accepted change as a Git commit or pull request.
+			</p>
+			<div class="card-grid">
+				{home.solutionCards.map((card) => (
+					<article class="info-card">
+						<h3>{card.title}</h3>
+						<p>{card.copy}</p>
+					</article>
+				))}
 			</div>
-			<div class="intro-text" id="form-result" style="display: none;">
-				E-mail noted! Thanks for your interest. ✨
+		</section>
+
+		<section class="page-section page-section--accent" id="gitops">
+			<div class="section-heading">
+				<p class="section-kicker">First use case</p>
+				<h2>Start with your GitOps repo</h2>
+				<p class="section-lede">
+					Have a GitOps repository where routine configuration changes still require YAML edits or manual pull requests?
+				</p>
 			</div>
-		</div>
+			<div class="two-column">
+				<div>
+					<p class="section-body">
+						ConfigButler can turn one workflow into a self-service API and GUI, while keeping Git as the audit trail.
+					</p>
+					<ul class="bullet-list bullet-list--compact">
+						{home.workflows.map((workflow) => (
+							<li>{workflow}</li>
+						))}
+					</ul>
+				</div>
+				<aside class="note-card">
+					<p>ConfigButler does not replace Flux, Argo CD, or your existing GitOps pipeline.</p>
+					<p>It gives GitOps a better front door.</p>
+				</aside>
+			</div>
+		</section>
+
+		<section class="page-section" id="how-it-works">
+			<div class="section-heading">
+				<p class="section-kicker">How it works</p>
+				<h2>How it works</h2>
+				<p class="section-lede">
+					Git remains useful for history, review, ownership, promotion, and reconciliation. It just no longer has to be the only interface.
+				</p>
+			</div>
+			<div class="steps-grid">
+				{home.steps.map((step, index) => (
+					<article class="step-card">
+						<div class="step-card__number">0{index + 1}</div>
+						<h3>{step.title}</h3>
+						<p>{step.copy}</p>
+					</article>
+				))}
+			</div>
+		</section>
+
+		<section class="page-section" id="agents">
+			<div class="section-heading">
+				<p class="section-kicker">Agents</p>
+				<h2>Built for humans. Ready for agents.</h2>
+				<p class="section-lede">
+					AI agents should work on the outcome, not reverse-engineer configuration screens.
+				</p>
+			</div>
+			<div class="two-column">
+				<div>
+					<p class="section-body">
+						Most configuration systems were designed for human operators clicking through admin panels or engineers editing files by hand. That makes them awkward and risky for agents.
+					</p>
+					<p class="section-body">
+						ConfigButler gives agents a safer interface:
+					</p>
+					<ul class="bullet-list bullet-list--compact">
+						{home.agentPoints.map((item) => (
+							<li>{item}</li>
+						))}
+					</ul>
+				</div>
+				<div class="quote-card quote-card--tall">
+					<p>Let your agents solve the problem. Let ConfigButler handle the configuration workflow.</p>
+					<p class="quote-card__subtext">Built for platform teams today. Ready for AI agents tomorrow.</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="page-section page-section--accent" id="pilot">
+			<div class="section-heading">
+				<p class="section-kicker">Pilot offer</p>
+				<h2>Turn one painful configuration workflow into a working pilot</h2>
+				<p class="section-lede">
+					The first commercial offer is intentionally focused.
+				</p>
+			</div>
+			<div class="two-column">
+				<div>
+					<p class="section-body">
+						In a short pilot, we take one existing configuration workflow and turn it into a working self-service API and GUI with Git-backed change recording.
+					</p>
+					<ul class="bullet-list bullet-list--compact">
+						{home.pilotItems.map((item) => (
+							<li>{item}</li>
+						))}
+					</ul>
+				</div>
+				<div class="cta-card">
+					<p class="cta-card__kicker">Configuration workflow pilot</p>
+					<p class="cta-card__copy">
+						Start with one high-friction workflow. Prove the operating model. Keep the Git-based controls you already trust.
+					</p>
+					<a class="button button--primary button--full" href={home.primaryCta.href}>{home.primaryCta.label}</a>
+					<p class="cta-card__footnote">Focused scope. Clear handover. Practical next steps.</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="page-section" id="credibility">
+			<div class="section-heading">
+				<p class="section-kicker">Credibility</p>
+				<h2>Built from real GitOps experiments</h2>
+				<p class="section-lede">
+					ConfigButler is informed by practical work around GitOps, Kubernetes APIs, platform engineering, and configuration ownership.
+				</p>
+			</div>
+			<ul class="bullet-list bullet-list--compact">
+				{home.credibilityItems.map((item) => (
+					<li>{item}</li>
+				))}
+			</ul>
+		</section>
+
+		<section class="final-cta">
+			<div class="final-cta__content">
+				<p class="section-kicker">Final CTA</p>
+				<h2>Have a configuration workflow that should not require YAML edits?</h2>
+				<p>
+					Let's turn one real workflow into a safer API, GUI, and Git-backed change trail.
+				</p>
+			</div>
+			<a class="button button--primary" href={home.primaryCta.href}>{home.primaryCta.label}</a>
+		</section>
+
+		<footer class="site-footer">
+			<div>
+				<p class="site-footer__brand">ConfigButler</p>
+				<p class="site-footer__tagline">{home.tagline}</p>
+			</div>
+			<nav class="site-footer__links" aria-label="Footer">
+				{home.footerLinks.map((link) => (
+					<a href={link.href}>{link.label}</a>
+				))}
+			</nav>
+			<p class="site-footer__copyright">Copyright 2026 ConfigButler</p>
+		</footer>
 	</div>
-	<script>
-		import '../form.js';
-	</script>
 </Layout>
