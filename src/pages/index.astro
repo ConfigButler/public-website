@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import IntentToCommit from '../components/IntentToCommit.astro';
+import WorkflowFlow from '../components/WorkflowFlow.vue';
 import { home } from '../content/home';
 ---
 
@@ -15,7 +15,9 @@ import { home } from '../content/home';
 	<div class="page">
 		<header class="topbar">
 			<a class="brand" href="#top" aria-label="ConfigButler home">
-				<span class="brand__mark">CB</span>
+				<span class="brand__logo-frame">
+					<img class="brand__logo" src="/logo_owl.png" alt="ConfigButler owl logo" />
+				</span>
 				<span class="brand__text">
 					<strong>ConfigButler</strong>
 					<span>{home.tagline}</span>
@@ -31,6 +33,15 @@ import { home } from '../content/home';
 
 		<section class="hero" id="top">
 			<div class="hero__copy">
+				<div class="hero__brand-lockup">
+					<span class="hero__logo-frame">
+						<img class="hero__logo" src="/logo_owl.png" alt="ConfigButler owl logo" />
+					</span>
+					<div class="hero__brand-meta">
+						<p class="hero__brand-name">ConfigButler</p>
+						<p class="hero__brand-tagline">{home.tagline}</p>
+					</div>
+				</div>
 				<div class="hero__badge">{home.tagline}</div>
 				<p class="hero__eyebrow">API-first. Agent-ready. Git-recorded.</p>
 				<h1>{home.headline}</h1>
@@ -43,10 +54,10 @@ import { home } from '../content/home';
 					ConfigButler does not replace GitOps. It gives GitOps a better front door.
 				</p>
 			</div>
+		</section>
 
-			<div class="hero__visual">
-				<IntentToCommit examples={home.intentExamples} />
-			</div>
+		<section class="hero-flow">
+			<WorkflowFlow client:load examples={home.intentExamples} />
 		</section>
 
 		<section class="page-section" id="problem">
