@@ -1,0 +1,11 @@
+# staff marks a flavour sold out from manage.yourcool.app
+spec:
+  flavours:
+    - name: Pistachio
+      available: false       # was true — sold out
+status:
+  phase: Applied
+  actor: sanne@yourcool.app
+  conflicts: resolved in realtime
+  pullRequest: yourcool/configuration#218
+  committed: configuration@c001c0de

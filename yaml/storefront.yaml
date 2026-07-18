@@ -1,0 +1,16 @@
+# streamed to the ordering app on every accepted change
+apiVersion: config.yourcool.app/v1
+kind: Storefront
+metadata:
+  name: flagship
+spec:
+  openingHours:
+    monFri: "12:00-22:00"
+    satSun: "11:00-23:00"
+  pickup:
+    slotMinutes: 15
+    capacityPerSlot: 8
+  orderLimit: 20
+status:
+  revision: 47
+  observedAt: "2026-07-17T21:04:11Z"

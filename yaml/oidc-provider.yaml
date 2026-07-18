@@ -1,13 +1,14 @@
 apiVersion: configbutler.ai/v1
 kind: OIDCProvider
 metadata:
-  name: yourcool-customers
+  name: yourcool-staff
 spec:
   issuer: https://login.yourcool.app
   clientId: configbutler
   claims:
-    tenant: org_id
+    tenant: shop_id
     email: email
+    role: role
 status:
   phase: Connected
   audience: config.yourcool.app

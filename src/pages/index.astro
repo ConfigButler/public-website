@@ -3,8 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import Icon from '../components/Icon.astro';
 import Mark from '../components/Mark.astro';
 import Yaml from '../components/Yaml.astro';
-import billingSettings from '../../yaml/billing-settings.yaml?raw';
-import billingChange from '../../yaml/billing-change.yaml?raw';
+import menu from '../../yaml/menu.yaml?raw';
+import menuSoldout from '../../yaml/menu-soldout.yaml?raw';
 
 const features = [
 	{ i: 'schema', t: 'Schema-defined configuration', d: 'Define the configuration model for your application or workflow. Every field is typed and validated.' },
@@ -67,10 +67,10 @@ const flow = [
 					</div>
 					<div class="reqline">
 						<span class="verb get">GET</span>
-						<span class="path">config.yourcool.app<span class="b">/v1/billingsettings/production</span></span>
+						<span class="path">config.yourcool.app<span class="b">/v1/menus/flagship</span></span>
 						<span style="margin-left:auto;color:var(--good)">200</span>
 					</div>
-					<Yaml code={billingSettings} />
+					<Yaml code={menu} />
 				</div>
 				<p class="mono" style="text-align:center;font-size:11px;color:var(--ink-3);margin-top:14px">
 					reads hit the live API · writes are validated, then committed to your repo
@@ -194,10 +194,10 @@ const flow = [
 						</div>
 						<div class="reqline">
 							<span class="verb put">PUT</span>
-							<span class="path">config.yourcool.app<span class="b">/v1/billingsettings/production</span></span>
+							<span class="path">config.yourcool.app<span class="b">/v1/menus/flagship</span></span>
 							<span style="margin-left:auto;color:var(--good)">202</span>
 						</div>
-						<Yaml code={billingChange} />
+						<Yaml code={menuSoldout} />
 					</div>
 					<p class="mono" style="text-align:center;font-size:11px;color:var(--ink-3);margin-top:14px">
 						concurrent edits &amp; conflicts, reconciled in realtime

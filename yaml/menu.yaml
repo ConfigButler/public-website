@@ -1,0 +1,22 @@
+apiVersion: config.yourcool.app/v1
+kind: Menu
+metadata:
+  name: flagship
+spec:
+  flavours:
+    - name: Pistachio
+      allergens: [nuts, milk]
+      price: "4.50"
+      available: true
+    - name: Stracciatella
+      allergens: [milk]
+      price: "4.00"
+      available: true
+    - name: Mango Sorbet
+      allergens: []
+      price: "4.00"
+      available: true
+status:
+  phase: Synced
+  url: https://config.yourcool.app/v1/menus/flagship
+  committed: configuration@1cec01d

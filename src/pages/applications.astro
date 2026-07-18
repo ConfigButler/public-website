@@ -2,8 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import Icon from '../components/Icon.astro';
 import Yaml from '../components/Yaml.astro';
-import featureSettings from '../../yaml/feature-settings.yaml?raw';
-import featureSchema from '../../yaml/feature-settings.schema.yaml?raw';
+import storefront from '../../yaml/storefront.yaml?raw';
+import menuSchema from '../../yaml/menu.schema.yaml?raw';
 
 const useCases = [
 	{ i: 'users', t: 'SaaS tenant settings', d: 'Per-customer configuration with a schema you control and a history you keep.' },
@@ -48,8 +48,8 @@ const useCases = [
 						<span class="tl"></span><span class="tl"></span><span class="tl"></span>
 						<span class="tname"><span class="b">config.yourcool.app</span> · watch stream</span>
 					</div>
-					<div class="reqline"><span class="verb get">WATCH</span><span class="path">config.yourcool.app<span class="b">/v1/featuresettings/live</span></span><span style="margin-left:auto;color:var(--good)">streaming</span></div>
-					<Yaml code={featureSettings} />
+					<div class="reqline"><span class="verb get">WATCH</span><span class="path">config.yourcool.app<span class="b">/v1/storefronts/flagship</span></span><span style="margin-left:auto;color:var(--good)">streaming</span></div>
+					<Yaml code={storefront} />
 				</div>
 			</div>
 		</div>
@@ -92,7 +92,7 @@ const useCases = [
 			<div class="col-visual">
 				<div class="term rv sticky">
 					<div class="term-bar"><span class="tl"></span><span class="tl"></span><span class="tl"></span><span class="tname">schema · <span class="b">ConfigSchema</span></span></div>
-					<Yaml code={featureSchema} />
+					<Yaml code={menuSchema} />
 				</div>
 			</div>
 		</div>
@@ -119,10 +119,10 @@ const useCases = [
 				<div class="card card-pad rv">
 					<div style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:16px">git log · config/</div>
 					<div class="stack" style="gap:12px;font-family:var(--mono);font-size:12.5px;color:var(--ink-2)">
-						<div style="display:flex;gap:10px"><span style="color:var(--brass-deep)">c7d40aa</span> raise trialDays 14 → 30</div>
-						<div style="display:flex;gap:10px"><span style="color:var(--brass-deep)">a1b9f2e</span> enable dunning retries</div>
-						<div style="display:flex;gap:10px"><span style="color:var(--brass-deep)">9f21c0d</span> add GBP to currency enum</div>
-						<div style="display:flex;gap:10px"><span style="color:var(--brass-deep)">44de8b1</span> init BillingSettings</div>
+						<div style="display:flex;gap:10px"><span style="color:var(--brass-deep)">c001c0de</span> mark Pistachio sold out<span style="margin-left:auto;color:var(--ink-3)">Sanne</span></div>
+						<div style="display:flex;gap:10px"><span style="color:var(--brass-deep)">1cec01d</span> add Mango Sorbet<span style="margin-left:auto;color:var(--ink-3)">Sanne</span></div>
+						<div style="display:flex;gap:10px"><span style="color:var(--brass-deep)">a1b9f2e</span> summer prices €3.50 → €4.00<span style="margin-left:auto;color:var(--ink-3)">Bram</span></div>
+						<div style="display:flex;gap:10px"><span style="color:var(--brass-deep)">44de8b1</span> init Menu<span style="margin-left:auto;color:var(--ink-3)">Bram</span></div>
 					</div>
 					<div class="hr" style="margin:18px 0"></div>
 					<p class="mono" style="font-size:11px;color:var(--ink-3);margin:0">Written automatically by ConfigButler on every accepted change.</p>
