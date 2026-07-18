@@ -1,0 +1,51 @@
+---
+// Build-time YAML highlighter. Takes a raw YAML string (typically imported from
+// ../../yaml/*.yaml?raw) and emits brand-tuned <span> markup matching the .yaml
+// classes in global.css. Ported from the ConfigButler handoff highlighter.
+interface Props { code: string; class?: string; }
+const { code, class: cls = '' } = Astro.props;
+
+const esc = (s: string) =>
+	s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+function renderValue(val: string, key: string): string {
+	if (val === '') return '';
+	let comment = '';
+	const cm = val.match(/^(.*?)(\s+#.*)$/);
+	let v = val;
+	if (cm) { v = cm[1]; comment = `<span class="c5">${esc(cm[2])}</span>`; }
+	let clsName = 'c2';
+	if (/^-?\d+(\.\d+)?$/.test(v)) clsName = 'c3';
+	else if (/^(true|false)$/.test(v)) clsName = 'c4';
+	else if (key === 'kind') clsName = 'c7';
+	return `<span class="${clsName}">${esc(v)}</span>${comment}`;
+}
+
+function highlightLine(line: string): string {
+	const m = line.match(/^(\s*)(.*)$/)!;
+	const indent = m[1];
+	const rest = m[2];
+	if (rest === '') return indent;
+	if (rest.startsWith('#')) return `${indent}<span class="c5">${esc(rest)}</span>`;
+
+	let dash = '';
+	let body = rest;
+	const dm = rest.match(/^(-\s+)(.*)$/);
+	if (dm) { dash = `<span class="c6">${dm[1]}</span>`; body = dm[2]; }
+
+	const kv = body.match(/^([\w.\-\/]+)(:)(\s*)(.*)$/);
+	let inner: string;
+	if (kv) {
+		const [, k, colon, sp, val] = kv;
+		const strong = k === 'kind' || k === 'apiVersion';
+		inner = `<span class="${strong ? 'c1s' : 'c1'}">${esc(k)}</span>` +
+			`<span class="c6">${colon}</span>${sp}${renderValue(val, k)}`;
+	} else {
+		inner = `<span class="c2">${esc(body)}</span>`;
+	}
+	return `${indent}${dash}${inner}`;
+}
+
+const html = code.replace(/\n+$/, '').split('\n').map(highlightLine).join('\n');
+---
+<pre class={`yaml ${cls}`} set:html={html} />

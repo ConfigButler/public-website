@@ -1,0 +1,176 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import Yaml from '../components/Yaml.astro';
+import databaseClaim from '../../yaml/database-claim.yaml?raw';
+
+const audiences = [
+	{ i: 'layers', t: 'For platform teams', d: 'Give internal users a safe, typed way to change GitOps-managed config without handing them the repo.' },
+	{ i: 'server', t: 'For internal developer platforms', d: 'A ready-made API and settings surface on top of the manifests you already ship.' },
+	{ i: 'rocket', t: 'For GitOps-driven products', d: 'Let customers or services drive configuration through an API that lands as clean Git history.' },
+];
+---
+<Layout
+	title="ConfigButler for GitOps: a realtime API in front of your repo"
+	description="Keep Git as the durable source of record while letting people, services, and agents interact through a managed API instead of editing YAML directly. Writes become reviewable pull requests."
+>
+	<!-- HERO -->
+	<section class="hero">
+		<div class="hero-bg"></div>
+		<div class="wrap hero-grid">
+			<div class="col-copy">
+				<span class="kicker"><span class="dot"></span>for gitops · the gitops api</span>
+				<h1 class="display" style="max-width:16ch">
+					Give GitOps-managed configuration a <span class="b">realtime API.</span>
+				</h1>
+				<p class="lede">
+					Keep Git as the durable source of record while letting people, services, and agents safely
+					interact through a managed API, instead of direct YAML editing. Nothing about your repo changes.
+				</p>
+				<div class="cta-row">
+					<a class="btn btn-ink" href="/about#contact"><span class="d"></span>Explore GitOps workflows</a>
+					<a class="btn btn-ghost" href="#writes">How writes become history</a>
+				</div>
+				<div class="trust">
+					<span>your git, untouched</span><span class="s"></span>
+					<span>writes = pull requests</span><span class="s"></span>
+					<span>works with your CRDs</span>
+				</div>
+			</div>
+			<div class="col-visual">
+				<div class="term">
+					<div class="term-bar"><span class="tl"></span><span class="tl"></span><span class="tl"></span><span class="tname"><span class="b">yourneat.configbutler.ai</span> · PUT → PR</span></div>
+					<div class="reqline"><span class="verb put">PUT</span><span class="path">yourneat.configbutler.ai<span class="b">/v1/databaseclaims/checkout</span></span><span style="margin-left:auto;color:var(--good)">→ PR #217</span></div>
+					<Yaml code={databaseClaim} />
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div class="wrap"><div class="hr"></div></div>
+
+	<!-- WHAT IT IS -->
+	<section class="sect">
+		<div class="wrap cols">
+			<div class="col-copy">
+				<span class="eyebrow"><span class="b">the idea</span> · krm, but reachable</span>
+				<h2 class="sect-h" style="margin-top:14px">Your config already speaks <span class="b">KRM.</span> It just has no front door.</h2>
+				<p class="lede" style="margin-top:18px">
+					Every resource in your repo is a Kubernetes object: an <code class="ic">apiVersion</code>, a
+					<code class="ic">kind</code>, a <code class="ic">spec</code> you author, and a
+					<code class="ic">status</code> the system fills in. A clean, declarative model, but the only way
+					in is a clone, a branch, and a pull request.
+				</p>
+				<p class="lede" style="margin-top:14px">
+					ConfigButler maps that same model onto a typed REST API. Reads return the live object from
+					<code class="ic">HEAD</code>. Writes validate against the schema and open a PR. Same KRM, same Git
+					history, now addressable by anything that speaks HTTP.
+				</p>
+			</div>
+			<div class="col-visual">
+				<div class="grid rv" style="gap:12px">
+					<div class="f"><span class="fi"><Icon name="api" /></span><div class="ft">Typed, not text</div><div class="fd">Requests are validated against the resource schema before they ever touch Git.</div></div>
+					<div class="f"><span class="fi"><Icon name="branch" /></span><div class="ft">Writes are pull requests</div><div class="fd">Every change is a reviewable PR against <code class="ic">main</code>, or a direct commit, your call.</div></div>
+					<div class="f"><span class="fi"><Icon name="shield" /></span><div class="ft">Policy at the edge</div><div class="fd">Schema and policy run at submit. Safe changes auto-approve; risky ones wait for a glance.</div></div>
+					<div class="f"><span class="fi"><Icon name="bot" /></span><div class="ft">Built for agents too</div><div class="fd">An agent can read and propose changes through the same typed surface a human uses.</div></div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- AUDIENCES -->
+	<section class="sect sect--paper-2">
+		<div class="wrap">
+			<div class="sect-head center">
+				<span class="eyebrow"><span class="b">who it's for</span></span>
+				<h2 class="sect-h">A bridge between APIs and <span class="b">Git-based operations.</span></h2>
+			</div>
+			<div class="feat feat--3">
+				{audiences.map((a) => (
+					<div class="f rv"><span class="fi"><Icon name={a.i} /></span><div class="ft">{a.t}</div><div class="fd">{a.d}</div></div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- WRITES BECOME HISTORY -->
+	<section class="sect" id="writes">
+		<div class="wrap cols reverse">
+			<div class="col-copy">
+				<span class="eyebrow"><span class="b">how api writes become git history</span></span>
+				<h2 class="sect-h" style="margin-top:14px">Existing workflows, <span class="b">fully preserved.</span></h2>
+				<p class="lede" style="margin-top:18px">
+					No migration. No new source of truth. No agent running in your cluster. ConfigButler reads what's
+					already committed and puts a typed door in front of it, then routes writes back through the
+					review and delivery flow you already trust.
+				</p>
+				<div class="flow" style="margin-top:26px">
+					<div class="flow-step"><span class="n mono">01</span><span class="si"><Icon name="api" /></span><div><div class="st">API write arrives</div><div class="sd">A human, script, or agent PUTs a typed change.</div></div></div>
+					<div class="flow-step"><span class="n mono">02</span><span class="si"><Icon name="shield" /></span><div><div class="st">Validated &amp; policy-checked</div><div class="sd">Schema and policy run before anything touches Git.</div></div></div>
+					<div class="flow-step"><span class="n mono">03</span><span class="si"><Icon name="branch" /></span><div><div class="st">Opened as a pull request</div><div class="sd">A clean diff against the right path, or a direct commit.</div></div></div>
+					<div class="flow-step"><span class="n mono">04</span><span class="si"><Icon name="git" /></span><div><div class="st">Merged &amp; delivered</div><div class="sd">Your CD (Argo CD, Flux) rolls it out as it always has.</div></div></div>
+				</div>
+			</div>
+			<div class="col-visual">
+				<div class="card card-pad rv sticky">
+					<div style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:16px">works with your stack</div>
+					<div class="cloud" style="justify-content:flex-start">
+						<span class="chip"><Icon name="box" /> Kubernetes</span>
+						<span class="chip"><Icon name="box" /> Helm</span>
+						<span class="chip"><Icon name="layers" /> Kustomize</span>
+						<span class="chip"><Icon name="route" /> Argo CD</span>
+						<span class="chip"><Icon name="spark" /> Flux</span>
+						<span class="chip"><Icon name="github" /> GitHub</span>
+						<span class="chip"><Icon name="git" /> GitLab</span>
+					</div>
+					<div class="hr" style="margin:18px 0"></div>
+					<p class="mono" style="font-size:11px;color:var(--ink-3);margin:0">
+						Realtime watch semantics on reads. Pull requests or direct commits on writes. Your review and
+						deployment workflows stay exactly where they are.
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- INTERN TEST / WHY -->
+	<section class="sect sect--paper-3">
+		<div class="wrap wrap--narrow">
+			<div class="sect-head center">
+				<span class="eyebrow"><span class="b">why it matters</span> · the intern test</span>
+				<h2 class="sect-h">Joe is on week two. He just needs a <span class="b">test database.</span></h2>
+			</div>
+			<div class="card card-pad rv" style="display:flex;gap:20px;align-items:flex-start">
+				<span style="width:46px;height:46px;flex:none;border-radius:10px;background:var(--brass-soft);border:1px solid var(--brass);display:flex;align-items:center;justify-content:center;color:var(--brass-deep)"><Icon name="users" size={22} /></span>
+				<div>
+					<div style="font-family:var(--sans);font-weight:600;font-size:16px">Joe</div>
+					<div class="mono" style="font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--brass-deep);margin-top:2px">intern · week two</div>
+					<p style="font-size:15px;color:var(--ink-2);margin-top:12px;line-height:1.6">
+						He doesn't know the repo layout, the overlays, or which folder a database goes in. Without a
+						front door, he files a ticket and waits days, or drops it into <code class="ic">overlays/prod/</code>
+						by mistake. With one, he fills a tiny form or asks an agent, and a clean, validated PR appears
+						for review. Schema and policy pass; a reviewer approves in one glance. He never touched the repo.
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- CTA -->
+	<section class="sect">
+		<div class="wrap">
+			<div class="cta-band rv">
+				<span class="kicker"><span class="dot"></span>let's talk</span>
+				<h2 class="sect-h" style="margin-top:14px;max-width:24ch">Explore GitOps-oriented workflows.</h2>
+				<p class="lede" style="margin-top:16px;max-width:60ch">
+					Point ConfigButler at a repo and a path. It discovers your kinds and gives you a typed API on top:
+					reads from HEAD, writes as pull requests. Let's find the first workflow worth wiring up.
+				</p>
+				<div class="cta-row" style="margin-top:28px">
+					<a class="btn btn-brass" href="/about#contact"><span class="d"></span>Talk to Simon</a>
+					<a class="btn btn-ghost-dark" href="/technology">See the architecture →</a>
+				</div>
+			</div>
+		</div>
+	</section>
+</Layout>

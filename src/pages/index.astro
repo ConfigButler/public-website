@@ -1,38 +1,421 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import Mark from '../components/Mark.astro';
+import Yaml from '../components/Yaml.astro';
+import billingSettings from '../../yaml/billing-settings.yaml?raw';
+import billingChange from '../../yaml/billing-change.yaml?raw';
+
+const features = [
+	{ i: 'schema', t: 'Schema-defined configuration', d: 'Define the configuration model for your application or workflow. Every field is typed and validated.' },
+	{ i: 'api', t: 'Typed API', d: 'Read and update settings through a structured API instead of raw file editing.' },
+	{ i: 'watch', t: 'Realtime watches', d: 'Stream updates live to applications, tools, or agents the moment they change.' },
+	{ i: 'route', t: 'Realtime conflict resolution', d: 'Concurrent edits and merge conflicts are reconciled in realtime. No failed writes, no manual rebases.' },
+	{ i: 'lock', t: 'Access control & OIDC', d: 'Control who can read or change what, and let your own customers sign in with OIDC.', tag: 'building' },
+	{ i: 'link', t: 'Custom domains', d: 'Serve the configuration API from your own domain, with certificates handled for you.', tag: 'building' },
+	{ i: 'git', t: 'Git-backed record', d: 'Every accepted change lands in your own Git repository as the durable source of record.' },
+	{ i: 'terraform', t: 'Terraform · CLI · agents', d: 'One typed surface for automation, humans, and AI agents alike.' },
+	{ i: 'key', t: 'Secrets where needed', d: 'Handle configuration that references or includes external service credentials, safely.' },
+];
+
+const flow = [
+	{ i: 'users', t: 'Humans · applications · agents', d: 'Everyone reads and writes through one typed interface, not raw files.' },
+	{ i: 'api', t: 'ConfigButler managed API', d: 'A typed, schema-validated control plane provisioned for you.' },
+	{ i: 'shield', t: 'Validation · auth · watches · audit', d: 'Every request is checked, authorized, streamed, and recorded.' },
+	{ i: 'server', t: 'Live configuration control plane', d: 'The operational truth: the current, addressable state of your config.' },
+	{ i: 'git', t: 'Continuous sync to your Git repo', d: 'Each accepted change is written to your own repository, automatically.' },
+	{ i: 'history', t: 'History · review · portability', d: 'A durable, customer-owned ledger that plugs into your delivery workflows.' },
+];
 ---
-<Layout title="ConfigButler is coming soon">
-	<link
-		href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Space+Grotesk:wght@400;700&display=swap"
-		rel="stylesheet"
-		slot="head"
-	/>
-	<img src="/logo_owl.png" alt="Logo" />
-	<h1>ConfigButler</h1>
-	<div class="cards">
-		<div class="card">
-			<p class="intro-text">
-				You build software: are you tired of complex, error-prone, distracting configurations? ConfigButler helps you build,
-				validate, and manage them with ease. Save time and deliver robust configs
-				your customers will love. Coming soon! 🚀
+<Layout>
+	<!-- ============ HERO ============ -->
+	<section class="hero" id="top">
+		<div class="hero-bg"></div>
+		<div class="wrap hero-grid">
+			<div class="col-copy">
+				<span class="kicker"><span class="dot"></span>configbutler.ai · managed configuration control plane</span>
+				<h1 class="display" style="max-width:16ch">
+					Managed configuration APIs, with every change recorded in your <span class="b">Git repository.</span>
+				</h1>
+				<p class="lede">
+					ConfigButler gives applications, people, and agents a typed realtime API for configuration.
+					Define your own schema, apply validation and access control, and keep a durable
+					customer-owned record in Git.
+				</p>
+				<div class="cta-row">
+					<a class="btn btn-ink" href="/about#contact"><span class="d"></span>Talk to Simon</a>
+					<a class="btn btn-ghost" href="#how">Explore the platform</a>
+				</div>
+				<div class="doors-inline">
+					<a class="doorlink" href="/applications"><span class="t">→</span> For Applications</a>
+					<a class="doorlink" href="/gitops"><span class="t">→</span> For GitOps</a>
+				</div>
+				<div class="trust">
+					<span>founder-led</span><span class="s"></span>
+					<span>built in public</span><span class="s"></span>
+					<span>open-source powered</span><span class="s"></span>
+					<span style="color:var(--brass-deep)">demos available</span>
+				</div>
+			</div>
+
+			<div class="col-visual">
+				<div class="term">
+					<div class="term-bar">
+						<span class="tl"></span><span class="tl"></span><span class="tl"></span>
+						<span class="tname"><span class="b">config.yourneat.app</span> · custom domain</span>
+						<span class="tright">typed API</span>
+					</div>
+					<div class="reqline">
+						<span class="verb get">GET</span>
+						<span class="path">config.yourneat.app<span class="b">/v1/billingsettings/production</span></span>
+						<span style="margin-left:auto;color:var(--good)">200</span>
+					</div>
+					<Yaml code={billingSettings} />
+				</div>
+				<p class="mono" style="text-align:center;font-size:11px;color:var(--ink-3);margin-top:14px">
+					reads hit the live API · writes are validated, then committed to your repo
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<div class="wrap"><div class="hr"></div></div>
+
+	<!-- ============ TWO DOORS ============ -->
+	<section class="sect" id="doors">
+		<div class="wrap">
+			<div class="sect-head center">
+				<span class="eyebrow"><span class="b">two entry points</span> · one platform</span>
+				<h2 class="sect-h">One control plane. <span class="b">Two ways in.</span></h2>
+				<p class="lede" style="margin-inline:auto">
+					ConfigButler is one managed configuration platform. Most teams arrive through one of two doors.
+				</p>
+			</div>
+
+			<div class="doors">
+				<div class="door rv">
+					<div class="door-tag">for applications</div>
+					<h3>Building an application?</h3>
+					<p>
+						Add runtime configuration without building your own settings backend. Define your schema
+						and get a managed API, CLI, watches, and durable Git-backed record keeping.
+					</p>
+					<ul class="door-list">
+						<li><Icon name="check" /> Typed settings, validated on write</li>
+						<li><Icon name="check" /> Realtime updates to your app</li>
+						<li><Icon name="check" /> You keep the history in Git</li>
+					</ul>
+					<div class="door-cta"><a class="link" href="/applications">Explore application use cases <Icon name="arrow" /></a></div>
+				</div>
+
+				<div class="door door--gitops rv">
+					<div class="door-tag">for gitops</div>
+					<h3>Already using GitOps?</h3>
+					<p>
+						Give users, services, and agents an API instead of making them edit YAML and Git directly.
+						Keep your Git workflows, while enabling safer, realtime configuration changes.
+					</p>
+					<ul class="door-list">
+						<li><Icon name="check" /> A typed door in front of your repo</li>
+						<li><Icon name="check" /> Writes become reviewable pull requests</li>
+						<li><Icon name="check" /> Works with your existing CRDs</li>
+					</ul>
+					<div class="door-cta"><a class="link" href="/gitops">Explore GitOps workflows <Icon name="arrow" /></a></div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ============ PROBLEM ============ -->
+	<section class="sect sect--paper-2" id="why">
+		<div class="wrap cols">
+			<div class="col-copy">
+				<span class="eyebrow"><span class="b">the problem</span> · config deserves better</span>
+				<h2 class="sect-h" style="margin-top:14px">
+					Configuration is too important to leave <span class="b">trapped in files</span> or scattered
+					across ad hoc systems.
+				</h2>
+				<p class="lede" style="margin-top:18px">
+					Many teams store important configuration in YAML, env vars, databases, or internal admin tables.
+					That usually means weak validation, unclear ownership, poor auditability, limited automation, or
+					an awkward developer experience.
+				</p>
+				<p class="lede" style="margin-top:14px">
+					Git is great for history, review, promotion, and portability, but it is not always a good
+					<em>interface</em> for people, applications, or AI agents. ConfigButler provides the missing
+					control plane, and keeps Git as the durable record underneath.
+				</p>
+			</div>
+			<div class="col-visual">
+				<div class="card card-pad rv" style="display:grid;gap:12px">
+					<div style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)">where config lives today</div>
+					<div class="stack" style="display:grid;gap:10px">
+						<div class="pipe-node"><span class="pi"><Icon name="doc" /></span><div><div class="pt">Hand-edited YAML &amp; env vars</div><div class="ps">No schema. No audit. Easy to fat-finger.</div></div></div>
+						<div class="pipe-node"><span class="pi"><Icon name="server" /></span><div><div class="pt">A vendor's database</div><div class="ps">Locked in. No portable history you own.</div></div></div>
+						<div class="pipe-node"><span class="pi"><Icon name="cli" /></span><div><div class="pt">An internal admin table</div><div class="ps">Yet another backend to build and operate.</div></div></div>
+						<div class="pipe-node accent"><span class="pi" style="color:var(--brass-deep)"><Mark size={20} boxed={false} /></span><div><div class="pt">A managed control plane</div><div class="ps">Typed API + access control, synced to your Git.</div></div></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ============ HOW IT WORKS ============ -->
+	<section class="sect" id="how">
+		<div class="wrap">
+			<div class="sect-head center">
+				<span class="eyebrow"><span class="b">how it works</span> · api on top, git underneath</span>
+				<h2 class="sect-h">From request to durable record, <span class="b">automatically.</span></h2>
+				<p class="lede" style="margin-inline:auto">
+					The operational truth is the managed API. The source of record is your Git repository,
+					continuously synchronized from live state.
+				</p>
+			</div>
+
+			<div class="cols" style="align-items:center">
+				<div class="col-copy">
+					<div class="pipe">
+						{flow.map((n, i) => (
+							<>
+								<div class={`pipe-node${i === flow.length - 1 ? ' accent' : ''}`}>
+									<span class="pi"><Icon name={n.i} /></span>
+									<div><div class="pt">{n.t}</div><div class="ps">{n.d}</div></div>
+								</div>
+								{i < flow.length - 1 && <div class="pipe-arrow"><Icon name="down" size={18} /></div>}
+							</>
+						))}
+					</div>
+				</div>
+				<div class="col-visual">
+					<div class="term rv sticky">
+						<div class="term-bar">
+							<span class="tl"></span><span class="tl"></span><span class="tl"></span>
+							<span class="tname">write path · <span class="b">PUT</span> → PR</span>
+						</div>
+						<div class="reqline">
+							<span class="verb put">PUT</span>
+							<span class="path">config.yourneat.app<span class="b">/v1/billingsettings/production</span></span>
+							<span style="margin-left:auto;color:var(--good)">202</span>
+						</div>
+						<Yaml code={billingChange} />
+					</div>
+					<p class="mono" style="text-align:center;font-size:11px;color:var(--ink-3);margin-top:14px">
+						concurrent edits &amp; conflicts, reconciled in realtime
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ============ FEATURES ============ -->
+	<section class="sect sect--paper-3" id="features">
+		<div class="wrap">
+			<div class="sect-head center">
+				<span class="eyebrow"><span class="b">the platform</span> · what you get</span>
+				<h2 class="sect-h">Everything a config backend needs, <span class="b">managed for you.</span></h2>
+			</div>
+			<div class="feat feat--3">
+				{features.map((f) => (
+					<div class="f rv">
+						<span class="fi"><Icon name={f.i} /></span>
+						{f.tag && <span class="f-tag">{f.tag}</span>}
+						<div class="ft">{f.t}</div>
+						<div class="fd">{f.d}</div>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- ============ WHY DIFFERENT ============ -->
+	<section class="sect" id="different">
+		<div class="wrap">
+			<div class="sect-head center">
+				<span class="eyebrow"><span class="b">why not build it yourself</span></span>
+				<h2 class="sect-h">You could build all of this. <span class="b">Most teams shouldn't.</span></h2>
+				<p class="lede" style="margin-inline:auto">
+					A real configuration backend is a stack of hard, unglamorous pieces. ConfigButler is that stack,
+					managed for you, so you can spend your time on the product instead.
+				</p>
+			</div>
+			<div class="compare">
+				<div class="compare-card rv">
+					<h3>Build it yourself</h3>
+					<div class="sub">the pieces you end up owning</div>
+					<ul class="ticklist diy">
+						<li><span class="mk"><Icon name="x" /></span> Define tables in your database</li>
+						<li><span class="mk"><Icon name="x" /></span> Write migration scripts for every change</li>
+						<li><span class="mk"><Icon name="x" /></span> Decide how to store secrets safely</li>
+						<li><span class="mk"><Icon name="x" /></span> Design and version your own REST API</li>
+						<li><span class="mk"><Icon name="x" /></span> Build a validation layer by hand</li>
+						<li><span class="mk"><Icon name="x" /></span> Build an admin UI so non-devs can edit</li>
+						<li><span class="mk"><Icon name="x" /></span> Add an audit log you hope you never need</li>
+						<li><span class="mk"><Icon name="x" /></span> Model access control from scratch</li>
+					</ul>
+					<p class="compare-note">And none of this is your primary product, so it rarely gets the time or UX it deserves.</p>
+				</div>
+				<div class="compare-card cb rv">
+					<h3>ConfigButler</h3>
+					<div class="sub">one managed control plane</div>
+					<ul class="ticklist cb">
+						<li><span class="mk"><Icon name="check" /></span> Typed, schema-validated API out of the box</li>
+						<li><span class="mk"><Icon name="check" /></span> No tables or migration scripts to maintain</li>
+						<li><span class="mk"><Icon name="check" /></span> Secrets handled where you need them</li>
+						<li><span class="mk"><Icon name="check" /></span> A generated settings UI, no admin build</li>
+						<li><span class="mk"><Icon name="check" /></span> Validation and policy handled for you</li>
+						<li><span class="mk"><Icon name="check" /></span> Realtime watches, built in</li>
+						<li><span class="mk"><Icon name="check" /></span> Access control for humans and agents</li>
+						<li><span class="mk"><Icon name="check" /></span> Every change recorded in your Git</li>
+					</ul>
+					<p class="compare-note">This is our whole product, so you get the polish and UX for free.</p>
+				</div>
+			</div>
+			<p class="mono center" style="font-size:12px;color:var(--ink-3);margin-top:24px;max-width:70ch;margin-inline:auto">
+				It also beats hand-edited files, feature-flag tools pushed past their sweet spot, config
+				trapped in a single vendor's database, and raw Git editing for non-Git-native users.
 			</p>
 		</div>
-		<div class="card">
-			<div class="intro-text" id="form-full">
-				Leave your e-mail address so that we can keep you posted!			
-				<form class="subscribe-form" id="form">
-					<input type="hidden" name="access_key" value="bd1aae6e-bd81-4bb9-b2c6-d8502a024110" />
-					<input type="checkbox" name="botcheck" id="" style="display: none;">
-					<input type="email" name="email" placeholder="Enter your email" required />
-					<button type="submit">Keep me informed</button>
-				</form>
+	</section>
+
+	<!-- ============ TECHNICAL CREDIBILITY ============ -->
+	<section class="sect sect--ink" id="tech">
+		<div class="wrap cols">
+			<div class="col-copy">
+				<span class="eyebrow"><span class="b">technical foundations</span> · for the curious</span>
+				<h2 class="sect-h" style="margin-top:14px">Built on proven <span class="b">declarative API patterns.</span></h2>
+				<p class="lede" style="margin-top:18px">
+					Under the hood, ConfigButler uses Kubernetes-style declarative APIs and watch semantics, so we
+					can spin up isolated, low-cost configuration APIs quickly. Strong foundations for schemas,
+					watches, multi-tenancy, and API-driven workflows.
+				</p>
+				<p class="lede" style="margin-top:14px">
+					This is enabling technology, not the headline. You get the semantics without running a cluster.
+				</p>
+				<div class="badges" style="margin-top:24px">
+					<span class="pill">declarative APIs</span>
+					<span class="pill">watch semantics</span>
+					<span class="pill">workspace isolation</span>
+					<span class="pill">schema-first</span>
+				</div>
+				<div style="margin-top:26px"><a class="link" href="/technology">Read the architecture <Icon name="arrow" /></a></div>
 			</div>
-			<div class="intro-text" id="form-result" style="display: none;">
-				E-mail noted! Thanks for your interest. ✨
+			<div class="col-visual">
+				<div class="grid rv" style="gap:12px">
+					<div class="f"><span class="fi"><Icon name="schema" /></span><div class="ft">Schemas &amp; validation</div><div class="fd">Every kind is typed; requests are checked before they land.</div></div>
+					<div class="f"><span class="fi"><Icon name="watch" /></span><div class="ft">Realtime watches</div><div class="fd">Stream changes to clients with Kubernetes-style watch semantics.</div></div>
+					<div class="f"><span class="fi"><Icon name="layers" /></span><div class="ft">Workspace isolation</div><div class="fd">Cheap, isolated control planes per tenant or workspace.</div></div>
+					<div class="f"><span class="fi"><Icon name="git" /></span><div class="ft">Structured change handling</div><div class="fd">Accepted state is continuously reconciled into Git.</div></div>
+				</div>
 			</div>
 		</div>
-	</div>
-	<script>
-		import '../form.js';
-	</script>
+	</section>
+
+	<!-- ============ OPEN SOURCE PREVIEW ============ -->
+	<section class="sect" id="open-source">
+		<div class="wrap">
+			<div class="sect-head center">
+				<span class="eyebrow"><span class="b">built in the open</span></span>
+				<h2 class="sect-h">Much of the thinking is <span class="b">developed in public.</span></h2>
+			</div>
+			<div class="grid grid-3">
+				<a class="repo rv" href="https://github.com/ConfigButler" target="_blank" rel="noopener">
+					<div class="repo-top"><Icon name="github" class="gh" /><span class="pill pill-brass">engine</span></div>
+					<h3>GitOps Reverser</h3>
+					<p>Open-source engine for turning API activity into clean YAML commits in Git.</p>
+					<div class="repo-meta"><span><span class="dot" style="background:#3178c6"></span>Go</span><span>MIT</span><span>github.com/ConfigButler</span></div>
+				</a>
+				<a class="repo rv" href="https://github.com/ConfigButler" target="_blank" rel="noopener">
+					<div class="repo-top"><Icon name="github" class="gh" /><span class="pill">streaming</span></div>
+					<h3>KRM Stream</h3>
+					<p>Streaming tooling for Kubernetes-style resource flows and realtime watches.</p>
+					<div class="repo-meta"><span><span class="dot" style="background:#3178c6"></span>Go</span><span>MIT</span><span>github.com/ConfigButler</span></div>
+				</a>
+				<a class="repo rv" href="https://github.com/ConfigButler" target="_blank" rel="noopener">
+					<div class="repo-top"><Icon name="github" class="gh" /><span class="pill">ideas</span></div>
+					<h3>Reverse GitOps</h3>
+					<p>The broader operating model and set of ideas behind this work.</p>
+					<div class="repo-meta"><span><span class="dot" style="background:#8aa097"></span>Writing</span><span>Open</span><span>github.com/ConfigButler</span></div>
+				</a>
+			</div>
+			<div class="center" style="margin-top:28px"><a class="btn btn-ghost" href="/open-source">See all open source <Icon name="arrow" /></a></div>
+		</div>
+	</section>
+
+	<!-- ============ ECOSYSTEM ============ -->
+	<section class="sect sect--paper-2 tight" id="ecosystem">
+		<div class="wrap">
+			<div class="sect-head center" style="margin-bottom:38px">
+				<span class="eyebrow">ecosystem</span>
+				<h2 class="sect-h" style="font-size:clamp(24px,3vw,32px)">Standing on good shoulders</h2>
+			</div>
+
+			<div class="eco-group">
+				<div class="eco-label">Built on / inspired by</div>
+				<div class="cloud">
+					<span class="chip"><Icon name="box" /> Kubernetes</span>
+					<span class="chip"><Icon name="git" /> Git</span>
+				</div>
+			</div>
+			<div class="eco-group">
+				<div class="eco-label">Works with</div>
+				<div class="cloud">
+					<span class="chip"><Icon name="github" /> GitHub</span>
+					<span class="chip"><Icon name="route" /> Argo CD</span>
+					<span class="chip"><Icon name="spark" /> Flux</span>
+					<span class="chip"><Icon name="box" /> Helm</span>
+					<span class="chip"><Icon name="terraform" /> Terraform</span>
+				</div>
+			</div>
+			<p class="mono center" style="font-size:11px;color:var(--ink-3);margin-top:26px">
+				Shown as ecosystem, integration &amp; inspiration. No affiliation or endorsement implied.
+			</p>
+		</div>
+	</section>
+
+	<!-- ============ DESIGN PARTNER CTA ============ -->
+	<section class="sect" id="design-partners">
+		<div class="wrap">
+			<div class="cta-band rv">
+				<span class="kicker"><span class="dot"></span>design partners · demos available</span>
+				<h2 class="sect-h" style="margin-top:14px;max-width:20ch">
+					Looking for early <span class="b">design partners.</span>
+				</h2>
+				<p class="lede" style="margin-top:16px;max-width:64ch">
+					ConfigButler is actively looking for teams that want a better way to manage runtime
+					configuration or Git-backed configuration workflows. If you're exploring internal developer
+					platforms, customer-facing configuration APIs, or API-first GitOps, let's talk. Live demos
+					are available on request.
+				</p>
+				<div class="cta-row" style="margin-top:28px">
+					<a class="btn btn-brass" href="/about#contact"><span class="d"></span>Book a demo</a>
+					<a class="btn btn-ghost-dark" href="/about#contact">Contact Simon</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ============ FOUNDER ============ -->
+	<section class="sect tight sect--paper-3" id="founder">
+		<div class="wrap wrap--narrow">
+			<div class="founder rv">
+				<div class="avatar"><Mark size={80} /></div>
+				<div>
+					<span class="eyebrow"><span class="b">founder-led</span></span>
+					<div class="fname" style="margin-top:10px">Simon Koudijs</div>
+					<div class="frole">founder · software &amp; platform engineer</div>
+					<p class="lede" style="font-size:16px;margin-top:14px">
+						Simon works at the intersection of Kubernetes, GitOps, APIs, and software delivery, as a
+						builder, speaker, and trainer. ConfigButler is built in public, and he works directly with
+						early teams to model and operationalize their configuration.
+					</p>
+					<div class="social">
+						<a class="social-btn" href="/about"><Icon name="doc" /> About</a>
+						<a class="social-btn" href="https://github.com/ConfigButler" target="_blank" rel="noopener"><Icon name="github" /> GitHub</a>
+						<a class="social-btn" href="https://www.linkedin.com/company/configbutler" target="_blank" rel="noopener"><Icon name="link" /> LinkedIn</a>
+						<a class="social-btn" href="/about#contact"><Icon name="mail" /> Contact</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 </Layout>

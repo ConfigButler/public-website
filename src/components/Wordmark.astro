@@ -1,0 +1,8 @@
+---
+// configbutler.ai wordmark — Geist 600, brass dot before the .ai tld.
+interface Props { size?: number; onInk?: boolean; }
+const { size = 17, onInk = false } = Astro.props;
+---
+<span class={`wm ${onInk ? 'on-ink' : ''}`} style={`font-size:${size}px`}>
+	<span>configbutler</span><span class="dot"></span><span class="tld">ai</span>
+</span>

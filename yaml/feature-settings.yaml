@@ -1,0 +1,12 @@
+# streamed to your app on every accepted change
+apiVersion: config.yourneat.app/v1
+kind: FeatureSettings
+metadata:
+  name: live
+spec:
+  newCheckout: true
+  maxUploadMb: 50
+  currency: EUR
+status:
+  revision: 47
+  observedAt: "2026-07-17T21:04:11Z"

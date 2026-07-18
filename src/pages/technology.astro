@@ -1,0 +1,211 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import Yaml from '../components/Yaml.astro';
+import customDomain from '../../yaml/custom-domain.yaml?raw';
+import oidcProvider from '../../yaml/oidc-provider.yaml?raw';
+import enrollRequest from '../../yaml/enroll-request.yaml?raw';
+
+const manifests = [
+	{ file: 'custom-domain.yaml', code: customDomain, kind: 'CustomDomain', verb: 'POST', path: '/v1/customdomains', note: 'Serve the API from your own domain, TLS handled for you.' },
+	{ file: 'oidc-provider.yaml', code: oidcProvider, kind: 'OIDCProvider', verb: 'POST', path: '/v1/oidcproviders', note: 'Let your own customers sign in with OIDC.' },
+	{ file: 'enroll-request.yaml', code: enrollRequest, kind: 'EnrollRequest', verb: 'POST', path: '/v1/enrollrequests', note: 'Even requesting an instance is a resource.' },
+];
+---
+<Layout
+	title="ConfigButler: technology & architecture"
+	description="How ConfigButler works: a managed Kubernetes-style control plane as the operational truth, with continuous synchronization to a customer-owned Git repository as the durable source of record."
+>
+	<!-- HERO -->
+	<section class="hero">
+		<div class="hero-bg"></div>
+		<div class="wrap" style="max-width:900px">
+			<span class="kicker"><span class="dot"></span>technology &amp; architecture</span>
+			<h1 class="display" style="max-width:18ch;margin-top:18px">
+				Technology and <span class="b">architecture.</span>
+			</h1>
+			<p class="lede" style="margin-top:22px;max-width:640px">
+				The technical corner. Here's how ConfigButler is put together: the split between operational
+				truth and durable record, why <code class="ic">kcp</code> matters, and how continuous sync to Git
+				works conceptually.
+			</p>
+		</div>
+	</section>
+
+	<div class="wrap"><div class="hr"></div></div>
+
+	<!-- OPERATIONAL TRUTH vs RECORD -->
+	<section class="sect">
+		<div class="wrap">
+			<div class="sect-head center">
+				<span class="eyebrow"><span class="b">the core distinction</span></span>
+				<h2 class="sect-h">Two layers, <span class="b">two jobs.</span></h2>
+				<p class="lede" style="margin-inline:auto">
+					Getting this right is the whole point. Don't confuse the live API with the ledger.
+				</p>
+			</div>
+			<div class="compare">
+				<div class="compare-card rv">
+					<h3>Operational truth</h3>
+					<div class="sub">the managed control plane</div>
+					<ul class="ticklist cb">
+						<li><span class="mk"><Icon name="check" /></span> The live, addressable state of your configuration</li>
+						<li><span class="mk"><Icon name="check" /></span> What applications and clients read and write</li>
+						<li><span class="mk"><Icon name="check" /></span> Kubernetes-style declarative API + watches</li>
+						<li><span class="mk"><Icon name="check" /></span> Where validation, auth, and policy run</li>
+					</ul>
+				</div>
+				<div class="compare-card cb rv">
+					<h3>Source of record</h3>
+					<div class="sub">your git repository</div>
+					<ul class="ticklist cb">
+						<li><span class="mk"><Icon name="check" /></span> The durable ledger, owned by you</li>
+						<li><span class="mk"><Icon name="check" /></span> Continuously synchronized from live state</li>
+						<li><span class="mk"><Icon name="check" /></span> History, review, promotion, portability</li>
+						<li><span class="mk"><Icon name="check" /></span> Integrates with your delivery workflows</li>
+					</ul>
+				</div>
+			</div>
+			<p class="mono center" style="font-size:12px;color:var(--ink-3);margin-top:22px;max-width:70ch;margin-inline:auto">
+				Applications and users interact with the <strong style="color:var(--ink)">API</strong>, not Git
+				directly. Git is kept in lock-step, automatically: it is the record, not the immediate operational path.
+			</p>
+		</div>
+	</section>
+
+	<!-- ARCHITECTURE DIAGRAM -->
+	<section class="sect sect--ink">
+		<div class="wrap cols" style="align-items:center">
+			<div class="col-copy">
+				<span class="eyebrow"><span class="b">high-level architecture</span></span>
+				<h2 class="sect-h" style="margin-top:14px">One managed plane, <span class="b">two directions of truth.</span></h2>
+				<p class="lede" style="margin-top:18px">
+					ConfigButler runs and manages the live configuration API. Clients interact with that API. Every
+					change is validated and continuously recorded to Git, which becomes the durable ledger you own.
+					The whole system is designed for portability, auditability, and interoperability.
+				</p>
+				<div class="badges" style="margin-top:24px">
+					<span class="pill">multi-tenant isolation</span>
+					<span class="pill">watch semantics</span>
+					<span class="pill">schema-first</span>
+					<span class="pill">git-synced</span>
+				</div>
+			</div>
+			<div class="col-visual">
+				<div class="term rv">
+					<div class="term-bar"><span class="tl"></span><span class="tl"></span><span class="tl"></span><span class="tname">architecture · <span class="b">flow</span></span></div>
+					<div style="padding:22px 20px;display:grid;gap:10px">
+						<div class="pipe-node" style="background:var(--term-2);border-color:var(--line-dark)"><span class="pi" style="color:var(--brass)"><Icon name="users" /></span><div><div class="pt" style="color:var(--paper)">Clients</div><div class="ps" style="color:var(--ink-4)">humans · apps · Terraform · CLI · agents</div></div></div>
+						<div class="pipe-arrow" style="color:var(--ink-4)"><Icon name="down" /></div>
+						<div class="pipe-node" style="background:rgba(196,163,90,.10);border-color:var(--brass)"><span class="pi" style="color:var(--brass)"><Icon name="api" /></span><div><div class="pt" style="color:var(--paper)">Managed API: the control plane</div><div class="ps" style="color:var(--ink-4)">validation · auth · watches · audit</div></div></div>
+						<div class="pipe-arrow" style="color:var(--ink-4)"><Icon name="down" /></div>
+						<div class="pipe-node" style="background:var(--term-2);border-color:var(--line-dark)"><span class="pi" style="color:var(--brass)"><Icon name="git" /></span><div><div class="pt" style="color:var(--paper)">Your Git repository</div><div class="ps" style="color:var(--ink-4)">durable record · history · portability</div></div></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- WHY KCP -->
+	<section class="sect">
+		<div class="wrap cols">
+			<div class="col-copy">
+				<span class="eyebrow"><span class="b">why kcp matters</span></span>
+				<h2 class="sect-h" style="margin-top:14px">Isolated configuration APIs, <span class="b">provisioned fast.</span></h2>
+				<p class="lede" style="margin-top:18px">
+					ConfigButler is powered by Kubernetes-inspired API machinery and <code class="ic">kcp</code>-based
+					control-plane patterns. That lets us spin up isolated, low-cost configuration APIs quickly, with
+					strong semantics for validation, watching, and structured change handling.
+				</p>
+				<p class="lede" style="margin-top:14px">
+					Crucially: you get the semantics of a Kubernetes API surface <em>without</em> running or operating a
+					cluster. It's enabling technology, not something you have to think about day to day.
+				</p>
+			</div>
+			<div class="col-visual">
+				<div class="grid grid-2 rv" style="gap:12px">
+					<div class="f"><span class="fi"><Icon name="layers" /></span><div class="ft">Workspace isolation</div><div class="fd">Each tenant or environment gets its own isolated API surface.</div></div>
+					<div class="f"><span class="fi"><Icon name="schema" /></span><div class="ft">Schema machinery</div><div class="fd">Typed kinds with validation, reused from proven patterns.</div></div>
+					<div class="f"><span class="fi"><Icon name="watch" /></span><div class="ft">Watches</div><div class="fd">Realtime streams of change, not polling.</div></div>
+					<div class="f"><span class="fi"><Icon name="rocket" /></span><div class="ft">Fast provisioning</div><div class="fd">Low-cost to stand up a new configuration API.</div></div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- MANIFEST OVERVIEW -->
+	<section class="sect sect--ink" id="manifests">
+		<div class="wrap">
+			<div class="sect-head center">
+				<span class="eyebrow"><span class="b">the manifests</span> · everything is a resource</span>
+				<h2 class="sect-h">Even the platform is <span class="b">declarative.</span></h2>
+				<p class="lede" style="margin-inline:auto">
+					Custom domains, OIDC for your customers, and even requesting an instance are themselves typed
+					resources. The same KRM you see across this site, collected in the
+					<code class="ic">yaml/</code> folder, rendered straight from source.
+				</p>
+			</div>
+			<div class="manifest-grid">
+				{manifests.map((m) => (
+					<div class="manifest rv">
+						<div class="term">
+							<div class="term-bar">
+								<span class="tl"></span><span class="tl"></span><span class="tl"></span>
+								<span class="tname"><span class="b">{m.kind}</span></span>
+								<span class="tright">{m.file}</span>
+							</div>
+							<div class="reqline"><span class="verb post">{m.verb}</span><span class="path"><span class="b">{m.path}</span></span></div>
+							<Yaml code={m.code} />
+						</div>
+						<p class="manifest-note mono">{m.note}</p>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- CONTINUOUS SYNC -->
+	<section class="sect sect--paper-2">
+		<div class="wrap cols reverse">
+			<div class="col-copy">
+				<span class="eyebrow"><span class="b">continuous sync to git</span> · conceptually</span>
+				<h2 class="sect-h" style="margin-top:14px">How live state becomes <span class="b">durable record.</span></h2>
+				<div class="flow" style="margin-top:24px">
+					<div class="flow-step"><span class="n mono">01</span><span class="si"><Icon name="check" /></span><div><div class="st">Change accepted</div><div class="sd">A write passes schema and policy on the live API.</div></div></div>
+					<div class="flow-step"><span class="n mono">02</span><span class="si"><Icon name="server" /></span><div><div class="st">Applied to the plane</div><div class="sd">The control plane reflects the new desired state.</div></div></div>
+					<div class="flow-step"><span class="n mono">03</span><span class="si"><Icon name="git" /></span><div><div class="st">Reconciled into Git</div><div class="sd">The change is rendered as a clean commit or PR to your repo.</div></div></div>
+					<div class="flow-step"><span class="n mono">04</span><span class="si"><Icon name="history" /></span><div><div class="st">Ledger updated</div><div class="sd">Your repo now holds the authoritative, portable history.</div></div></div>
+				</div>
+			</div>
+			<div class="col-visual">
+				<div class="card card-pad rv sticky prose">
+					<h3 style="margin-top:0">Where open source fits</h3>
+					<p style="font-size:15px">
+						The reconciliation engine that turns API activity into clean YAML commits is developed in the
+						open as <strong>GitOps Reverser</strong>. Streaming resource flows come from <strong>KRM Stream</strong>.
+						The wider operating model is <strong>Reverse GitOps</strong>.
+					</p>
+					<a class="link" href="/open-source">Explore the open source <Icon name="arrow" /></a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- CTA -->
+	<section class="sect">
+		<div class="wrap">
+			<div class="cta-band rv">
+				<span class="kicker"><span class="dot"></span>go deeper</span>
+				<h2 class="sect-h" style="margin-top:14px;max-width:22ch">Want the detailed architecture?</h2>
+				<p class="lede" style="margin-top:16px;max-width:60ch">
+					This page stays high-level on purpose. If you want to go deep on isolation, watch semantics, or
+					the sync engine, the fastest path is a conversation.
+				</p>
+				<div class="cta-row" style="margin-top:28px">
+					<a class="btn btn-brass" href="/about#contact"><span class="d"></span>Talk to Simon</a>
+					<a class="btn btn-ghost-dark" href="/open-source">Browse open source →</a>
+				</div>
+			</div>
+		</div>
+	</section>
+</Layout>

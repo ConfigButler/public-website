@@ -1,0 +1,134 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+
+const repos = [
+	{
+		name: 'GitOps Reverser', tag: 'engine', lang: 'Go', langColor: '#3178c6', license: 'MIT',
+		desc: 'The open-source engine for turning API activity into clean YAML commits in Git. The reconciliation core behind the durable record.',
+	},
+	{
+		name: 'KRM Stream', tag: 'streaming', lang: 'Go', langColor: '#3178c6', license: 'MIT',
+		desc: 'Streaming tooling for Kubernetes-style resource flows and realtime watches: the plumbing for live change propagation.',
+	},
+	{
+		name: 'Reverse GitOps', tag: 'ideas', lang: 'Writing', langColor: '#8aa097', license: 'Open',
+		desc: 'The broader operating model and set of ideas behind this work: why an API belongs in front of Git, not instead of it.',
+	},
+];
+---
+<Layout
+	title="ConfigButler: open source at the core"
+	description="Much of the thinking and enabling technology behind ConfigButler is developed in public: GitOps Reverser, KRM Stream, and the Reverse GitOps operating model."
+>
+	<!-- HERO -->
+	<section class="hero">
+		<div class="hero-bg"></div>
+		<div class="wrap" style="max-width:900px">
+			<span class="kicker"><span class="dot"></span>open source</span>
+			<h1 class="display" style="max-width:16ch;margin-top:18px">
+				Open source <span class="b">at the core.</span>
+			</h1>
+			<p class="lede" style="margin-top:22px;max-width:640px">
+				Much of the thinking and enabling technology behind ConfigButler is developed in public. The
+				engine that keeps Git in sync, the streaming layer, and the operating model are all out in the open.
+			</p>
+			<div class="cta-row">
+				<a class="btn btn-ink" href="https://github.com/ConfigButler" target="_blank" rel="noopener"><span class="d"></span>View on GitHub</a>
+			</div>
+		</div>
+	</section>
+
+	<div class="wrap"><div class="hr"></div></div>
+
+	<!-- PROJECT CARDS -->
+	<section class="sect">
+		<div class="wrap">
+			<div class="sect-head">
+				<span class="eyebrow"><span class="b">the projects</span></span>
+				<h2 class="sect-h">What we build in the open.</h2>
+			</div>
+			<div class="grid grid-3">
+				{repos.map((r) => (
+					<a class="repo rv" href="https://github.com/ConfigButler" target="_blank" rel="noopener">
+						<div class="repo-top"><Icon name="github" class="gh" /><span class="pill pill-brass">{r.tag}</span></div>
+						<h3>{r.name}</h3>
+						<p>{r.desc}</p>
+						<div class="repo-meta">
+							<span><span class="dot" style={`background:${r.langColor}`}></span>{r.lang}</span>
+							<span>{r.license}</span>
+							<span>github.com/ConfigButler</span>
+						</div>
+					</a>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- ADMIRE / USE / BUILD ON -->
+	<section class="sect sect--paper-2">
+		<div class="wrap">
+			<div class="sect-head center">
+				<span class="eyebrow"><span class="b">projects we admire, use, and build on</span></span>
+				<h2 class="sect-h">Standing on good shoulders</h2>
+			</div>
+			<div class="eco-group">
+				<div class="eco-label">Built on / inspired by</div>
+				<div class="cloud">
+					<span class="chip"><Icon name="box" /> Kubernetes</span>
+					<span class="chip"><Icon name="layers" /> kcp</span>
+					<span class="chip"><Icon name="git" /> Git</span>
+				</div>
+			</div>
+			<div class="eco-group">
+				<div class="eco-label">Proudly uses / works with</div>
+				<div class="cloud">
+					<span class="chip"><Icon name="spark" /> Flux</span>
+					<span class="chip"><Icon name="route" /> Argo CD</span>
+					<span class="chip"><Icon name="box" /> Helm</span>
+					<span class="chip"><Icon name="terraform" /> Terraform</span>
+					<span class="chip"><Icon name="github" /> GitHub</span>
+				</div>
+			</div>
+			<p class="mono center" style="font-size:11px;color:var(--ink-3);margin-top:26px">
+				Shown as ecosystem, integration &amp; inspiration. No affiliation or endorsement implied.
+			</p>
+		</div>
+	</section>
+
+	<!-- WHY OPEN -->
+	<section class="sect">
+		<div class="wrap wrap--narrow prose rv">
+			<span class="eyebrow"><span class="b">why in the open</span></span>
+			<h2 style="margin-top:14px">The record should outlive the vendor</h2>
+			<p>
+				ConfigButler's whole premise is that your configuration history belongs to <strong>you</strong>. It
+				would be strange to make the machinery that writes that history a black box. So the reconciliation
+				engine, the streaming layer, and the operating model are developed in public: inspectable,
+				forkable, and durable beyond any single company.
+			</p>
+			<p>
+				It also keeps us honest. Building in the open means the ideas have to actually hold up.
+			</p>
+			<div style="margin-top:20px"><a class="btn btn-ghost" href="https://github.com/ConfigButler" target="_blank" rel="noopener"><Icon name="github" /> Follow along on GitHub</a></div>
+		</div>
+	</section>
+
+	<!-- CTA -->
+	<section class="sect sect--paper-3 tight">
+		<div class="wrap">
+			<div class="cta-band rv">
+				<span class="kicker"><span class="dot"></span>get involved</span>
+				<h2 class="sect-h" style="margin-top:14px;max-width:22ch">Building in public, <span class="b">come build with us.</span></h2>
+				<p class="lede" style="margin-top:16px;max-width:60ch">
+					Interested in the engine, the streaming layer, or the ideas? Star the repos, open an issue, or
+					just say hi.
+				</p>
+				<div class="cta-row" style="margin-top:28px">
+					<a class="btn btn-brass" href="https://github.com/ConfigButler" target="_blank" rel="noopener"><span class="d"></span>GitHub</a>
+					<a class="btn btn-ghost-dark" href="/about#contact">Talk to Simon →</a>
+				</div>
+			</div>
+		</div>
+	</section>
+</Layout>

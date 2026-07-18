@@ -1,0 +1,13 @@
+apiVersion: platform.yourneat.app/v1
+kind: DatabaseClaim
+metadata:
+  name: checkout
+  namespace: dev
+spec:
+  engine: postgres
+  size: small
+  ttl: 3d
+status:
+  phase: PullRequestOpened
+  checks: [schema ok, policy ok]
+  pullRequest: yourneat/platform-config#217

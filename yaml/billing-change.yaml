@@ -1,0 +1,7 @@
+spec:
+  trialDays: 30            # was 14
+status:
+  phase: Applied
+  conflicts: resolved in realtime
+  pullRequest: yourneat/platform-config#218
+  committed: platform-config@c7d40aa

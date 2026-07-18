@@ -1,0 +1,187 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import Yaml from '../components/Yaml.astro';
+import featureSettings from '../../yaml/feature-settings.yaml?raw';
+import featureSchema from '../../yaml/feature-settings.schema.yaml?raw';
+
+const useCases = [
+	{ i: 'users', t: 'SaaS tenant settings', d: 'Per-customer configuration with a schema you control and a history you keep.' },
+	{ i: 'spark', t: 'Product runtime options', d: 'Behaviour that matters but does not change every minute, typed and validated.' },
+	{ i: 'key', t: 'Integration credentials', d: 'API keys and secrets for external services, referenced safely where needed.' },
+	{ i: 'server', t: 'Operational configuration', d: 'Limits, toggles, and thresholds your team adjusts without a redeploy.' },
+	{ i: 'layers', t: 'Customer-specific behaviour', d: 'Override defaults per tenant while keeping one clean, typed model.' },
+	{ i: 'history', t: 'Auditable change history', d: 'Every accepted change lands in Git: who changed what, and when.' },
+];
+---
+<Layout
+	title="ConfigButler for Applications: runtime configuration, managed"
+	description="Give your application a typed configuration API without building and operating a custom configuration backend. Schemas, realtime updates, and a customer-owned record in Git."
+>
+	<!-- HERO -->
+	<section class="hero">
+		<div class="hero-bg"></div>
+		<div class="wrap hero-grid">
+			<div class="col-copy">
+				<span class="kicker"><span class="dot"></span>for applications</span>
+				<h1 class="display" style="max-width:15ch">
+					Runtime configuration <span class="b">for applications.</span>
+				</h1>
+				<p class="lede">
+					Give your application a typed configuration API without building and operating a custom
+					configuration backend. Strong schemas, safe updates, realtime distribution, and you keep the
+					durable history in your own Git repository.
+				</p>
+				<div class="cta-row">
+					<a class="btn btn-ink" href="/about#contact"><span class="d"></span>Talk about your use case</a>
+					<a class="btn btn-ghost" href="#schema">See the schema flow</a>
+				</div>
+				<div class="trust">
+					<span>typed &amp; validated</span><span class="s"></span>
+					<span>realtime watches</span><span class="s"></span>
+					<span>you own the history</span>
+				</div>
+			</div>
+			<div class="col-visual">
+				<div class="term">
+					<div class="term-bar">
+						<span class="tl"></span><span class="tl"></span><span class="tl"></span>
+						<span class="tname"><span class="b">config.yourneat.app</span> · watch stream</span>
+					</div>
+					<div class="reqline"><span class="verb get">WATCH</span><span class="path">config.yourneat.app<span class="b">/v1/featuresettings/live</span></span><span style="margin-left:auto;color:var(--good)">streaming</span></div>
+					<Yaml code={featureSettings} />
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div class="wrap"><div class="hr"></div></div>
+
+	<!-- USE CASES -->
+	<section class="sect">
+		<div class="wrap">
+			<div class="sect-head center">
+				<span class="eyebrow"><span class="b">common use cases</span></span>
+				<h2 class="sect-h">Application settings that matter, <span class="b">but don't belong in a file.</span></h2>
+			</div>
+			<div class="feat feat--3">
+				{useCases.map((u) => (
+					<div class="f rv"><span class="fi"><Icon name={u.i} /></span><div class="ft">{u.t}</div><div class="fd">{u.d}</div></div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- SCHEMA FLOW -->
+	<section class="sect sect--paper-2" id="schema">
+		<div class="wrap cols">
+			<div class="col-copy">
+				<span class="eyebrow"><span class="b">define the schema</span> · step one</span>
+				<h2 class="sect-h" style="margin-top:14px">Describe your config once. <span class="b">Get an API for free.</span></h2>
+				<p class="lede" style="margin-top:18px">
+					You define the shape of your configuration: fields, types, defaults, and constraints.
+					ConfigButler turns that schema into a typed API, a CLI surface, and validated write paths.
+					No admin backend to build.
+				</p>
+				<div class="flow" style="margin-top:26px">
+					<div class="flow-step"><span class="n mono">01</span><span class="si"><Icon name="schema" /></span><div><div class="st">Define your kinds</div><div class="sd">Author the schema for each configuration kind your app needs.</div></div></div>
+					<div class="flow-step"><span class="n mono">02</span><span class="si"><Icon name="api" /></span><div><div class="st">Get a typed API</div><div class="sd">GET / PUT / POST endpoints, generated from the schema.</div></div></div>
+					<div class="flow-step"><span class="n mono">03</span><span class="si"><Icon name="watch" /></span><div><div class="st">Consume realtime</div><div class="sd">Your app watches for changes and reacts instantly.</div></div></div>
+				</div>
+			</div>
+			<div class="col-visual">
+				<div class="term rv sticky">
+					<div class="term-bar"><span class="tl"></span><span class="tl"></span><span class="tl"></span><span class="tname">schema · <span class="b">ConfigSchema</span></span></div>
+					<Yaml code={featureSchema} />
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- WHY GIT-BACKED -->
+	<section class="sect">
+		<div class="wrap cols reverse">
+			<div class="col-copy">
+				<span class="eyebrow"><span class="b">why git-backed record keeping</span></span>
+				<h2 class="sect-h" style="margin-top:14px">Your config, <span class="b">portable and yours.</span></h2>
+				<p class="lede" style="margin-top:18px">
+					The live API is the operational truth. But the durable record of every accepted change lives in
+					<em>your</em> Git repository, not locked inside a vendor database.
+				</p>
+				<ul class="door-list" style="margin-top:20px;gap:12px">
+					<li><Icon name="check" /> Full history, review, and blame you already know how to read</li>
+					<li><Icon name="check" /> Promotion and rollback through normal Git workflows</li>
+					<li><Icon name="check" /> Portability: the record stands on its own, without us</li>
+					<li><Icon name="check" /> Less lock-in than storing everything only in a SaaS database</li>
+				</ul>
+			</div>
+			<div class="col-visual">
+				<div class="card card-pad rv">
+					<div style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:16px">git log · config/</div>
+					<div class="stack" style="gap:12px;font-family:var(--mono);font-size:12.5px;color:var(--ink-2)">
+						<div style="display:flex;gap:10px"><span style="color:var(--brass-deep)">c7d40aa</span> raise trialDays 14 → 30</div>
+						<div style="display:flex;gap:10px"><span style="color:var(--brass-deep)">a1b9f2e</span> enable dunning retries</div>
+						<div style="display:flex;gap:10px"><span style="color:var(--brass-deep)">9f21c0d</span> add GBP to currency enum</div>
+						<div style="display:flex;gap:10px"><span style="color:var(--brass-deep)">44de8b1</span> init BillingSettings</div>
+					</div>
+					<div class="hr" style="margin:18px 0"></div>
+					<p class="mono" style="font-size:11px;color:var(--ink-3);margin:0">Written automatically by ConfigButler on every accepted change.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- DIFFERENT FROM -->
+	<section class="sect sect--paper-3">
+		<div class="wrap">
+			<div class="sect-head center">
+				<span class="eyebrow"><span class="b">how it's different</span></span>
+				<h2 class="sect-h">Not a feature flag tool. <span class="b">Not just a database.</span></h2>
+			</div>
+			<div class="compare">
+				<div class="compare-card rv">
+					<h3>Feature-flag systems</h3>
+					<div class="sub">great, until you push past their sweet spot</div>
+					<ul class="ticklist diy">
+						<li><span class="mk"><Icon name="x" /></span> Built for booleans &amp; rollouts, not rich typed config</li>
+						<li><span class="mk"><Icon name="x" /></span> Your data lives in their database</li>
+						<li><span class="mk"><Icon name="x" /></span> Limited schema modelling for structured settings</li>
+						<li><span class="mk"><Icon name="x" /></span> History and portability on their terms</li>
+					</ul>
+				</div>
+				<div class="compare-card cb rv">
+					<h3>ConfigButler</h3>
+					<div class="sub">a typed config control plane</div>
+					<ul class="ticklist cb">
+						<li><span class="mk"><Icon name="check" /></span> Model any structured configuration, your schema</li>
+						<li><span class="mk"><Icon name="check" /></span> The durable record stays in your Git</li>
+						<li><span class="mk"><Icon name="check" /></span> Validation, access control &amp; watches built in</li>
+						<li><span class="mk"><Icon name="check" /></span> One surface for apps, humans, and agents</li>
+					</ul>
+				</div>
+			</div>
+			<p class="mono center" style="font-size:12px;color:var(--ink-3);margin-top:22px;max-width:66ch;margin-inline:auto">
+				And unlike "just store it in a database", you don't build or operate the validation, audit,
+				realtime, access-control, and Git-sync layers yourself.
+			</p>
+		</div>
+	</section>
+
+	<!-- CTA -->
+	<section class="sect">
+		<div class="wrap">
+			<div class="cta-band rv">
+				<span class="kicker"><span class="dot"></span>let's talk</span>
+				<h2 class="sect-h" style="margin-top:14px;max-width:22ch">Talk about your application use case.</h2>
+				<p class="lede" style="margin-top:16px;max-width:60ch">
+					Tell us what you're configuring today. We'll help you model it as a schema and show you the API,
+					watches, and Git-backed record in your own repo.
+				</p>
+				<div class="cta-row" style="margin-top:28px">
+					<a class="btn btn-brass" href="/about#contact"><span class="d"></span>Talk to Simon</a>
+					<a class="btn btn-ghost-dark" href="/gitops">Already on GitOps? →</a>
+				</div>
+			</div>
+		</div>
+	</section>
+</Layout>

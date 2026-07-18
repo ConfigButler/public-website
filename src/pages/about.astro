@@ -1,0 +1,112 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import Mark from '../components/Mark.astro';
+---
+<Layout
+	title="About ConfigButler: founder-led, built in public"
+	description="ConfigButler is an early-stage, founder-led company focused on managed configuration APIs, built in public by Simon Koudijs. Interested in practical design partnerships."
+>
+	<!-- HERO -->
+	<section class="hero">
+		<div class="hero-bg"></div>
+		<div class="wrap" style="max-width:900px">
+			<span class="kicker"><span class="dot"></span>about</span>
+			<h1 class="display" style="max-width:16ch;margin-top:18px">
+				About <span class="b">ConfigButler.</span>
+			</h1>
+			<p class="lede" style="margin-top:22px;max-width:640px">
+				An early-stage, founder-led company focused on managed configuration APIs. Built in public,
+				and actively interested in practical design partnerships.
+			</p>
+		</div>
+	</section>
+
+	<div class="wrap"><div class="hr"></div></div>
+
+	<!-- FOUNDER -->
+	<section class="sect">
+		<div class="wrap wrap--narrow">
+			<div class="founder rv">
+				<div class="avatar"><Mark size={84} /></div>
+				<div>
+					<span class="eyebrow"><span class="b">founder</span></span>
+					<div class="fname" style="margin-top:10px">Simon Koudijs</div>
+					<div class="frole">founder · software &amp; platform engineer</div>
+					<p class="lede" style="font-size:16px;margin-top:16px">
+						Simon Koudijs is a software and platform engineer, founder of ConfigButler, and a
+						speaker/trainer working on GitOps, Kubernetes, API-first configuration, and software delivery.
+						He works at the intersection of these worlds, and builds in public.
+					</p>
+					<div class="social">
+						<a class="social-btn" href="https://github.com/ConfigButler" target="_blank" rel="noopener"><Icon name="github" /> GitHub</a>
+						<a class="social-btn" href="https://www.linkedin.com/company/configbutler" target="_blank" rel="noopener"><Icon name="link" /> LinkedIn</a>
+						<a class="social-btn" href="#contact"><Icon name="mail" /> Email</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- WHAT WE'RE ABOUT -->
+	<section class="sect sect--paper-2 tight">
+		<div class="wrap">
+			<div class="grid grid-4">
+				<div class="f rv"><span class="fi"><Icon name="rocket" /></span><div class="ft">Early-stage &amp; real</div><div class="fd">Not a placeholder. A working platform, shipping in public.</div></div>
+				<div class="f rv"><span class="fi"><Icon name="api" /></span><div class="ft">Managed config APIs</div><div class="fd">A typed control plane for humans, applications, and agents.</div></div>
+				<div class="f rv"><span class="fi"><Icon name="git" /></span><div class="ft">Built in public</div><div class="fd">Core engine and ideas developed as open source.</div></div>
+				<div class="f rv"><span class="fi"><Icon name="users" /></span><div class="ft">Design partnerships</div><div class="fd">Working directly with early teams to get it right.</div></div>
+			</div>
+		</div>
+	</section>
+
+	<!-- CONTACT -->
+	<section class="sect sect--ink" id="contact">
+		<div class="wrap cols" style="align-items:start">
+			<div class="col-copy">
+				<span class="eyebrow"><span class="b">contact</span> · let's talk</span>
+				<h2 class="sect-h" style="margin-top:14px">Let's talk about your <span class="b">configuration.</span></h2>
+				<p class="lede" style="margin-top:18px">
+					ConfigButler is looking for early teams who want a better way to manage application configuration
+					or Git-backed configuration workflows. If you're exploring internal developer platforms,
+					customer-facing configuration APIs, or API-first GitOps, get in touch.
+				</p>
+				<div class="stack" style="margin-top:26px;gap:12px">
+					<a class="social-btn" href="mailto:simon@configbutler.ai"><Icon name="mail" /> simon@configbutler.ai</a>
+					<a class="social-btn" href="https://github.com/ConfigButler" target="_blank" rel="noopener"><Icon name="github" /> github.com/ConfigButler</a>
+					<a class="social-btn" href="https://www.linkedin.com/company/configbutler" target="_blank" rel="noopener"><Icon name="link" /> linkedin.com/company/configbutler</a>
+				</div>
+			</div>
+			<div class="col-visual">
+				<form class="form" id="contact-form">
+					<input type="hidden" name="access_key" value="bd1aae6e-bd81-4bb9-b2c6-d8502a024110" />
+					<input type="hidden" name="subject" value="New ConfigButler enquiry" />
+					<input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
+					<div class="field">
+						<label for="cf-name">Name</label>
+						<input class="in" id="cf-name" name="name" placeholder="Jane Doe" required />
+					</div>
+					<div class="field">
+						<label for="cf-email">Work email</label>
+						<input class="in" id="cf-email" type="email" name="email" placeholder="you@company.com" required />
+					</div>
+					<div class="field">
+						<label for="cf-msg">What are you configuring today?</label>
+						<textarea class="in" id="cf-msg" name="message" rows="4" placeholder="A sentence or two about your app or GitOps setup…"></textarea>
+					</div>
+					<button class="submit" type="submit"><span class="d"></span>POST /contact</button>
+					<p class="mono" style="font-size:10.5px;color:var(--ink-4);margin:0">We'll only use this to reply. No lists, no noise.</p>
+				</form>
+				<div class="form-result" id="form-result" tabindex="-1">
+					<span class="ck"><Icon name="check" size={16} /></span>
+					<span class="ttl">Message noted, thank you.</span>
+					<span class="msg">Simon will get back to you personally. Talk soon. ✨</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script>
+		import '../form.js';
+	</script>
+</Layout>

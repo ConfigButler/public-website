@@ -1,0 +1,11 @@
+apiVersion: configbutler.ai/v1
+kind: EnrollRequest
+metadata:
+  name: team-checkout
+spec:
+  email: you@company.com
+  repo: yourneat/platform-config
+  domain: config.yourneat.app
+status:
+  phase: Provisioning
+  url: https://yourneat.configbutler.ai

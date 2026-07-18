@@ -25,6 +25,14 @@ yarn-error.log*
 *.local
 *.log
 
+# Design source & brief — reference material, not part of the built site
+design/
+raw-input.md
+
+# Internal docs — planning, positioning, feedback. This repo is public:
+# these contain founder lore and candid self-assessment. Keep them local.
+docs/
+
 # Mac system files
 Icon?
 

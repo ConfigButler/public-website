@@ -1,0 +1,14 @@
+apiVersion: config.yourneat.app/v1
+kind: BillingSettings
+metadata:
+  name: production
+spec:
+  currency: EUR
+  trialDays: 14
+  dunning:
+    enabled: true
+    retries: 3
+status:
+  phase: Synced
+  url: https://config.yourneat.app/v1/billingsettings
+  committed: platform-config@a1b9f2e
