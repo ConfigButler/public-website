@@ -12,6 +12,11 @@ door on the site. Keep them distinct when editing:
   served from their own custom domain `config.yourcool.app` (default host:
   `yourcool.configbutler.ai`), backed by the Git repo `github.com/yourcool/configuration`.
   Used by the home hero, Applications, and the SaaS-flavoured Technology examples.
+
+  The **API group and the host are deliberately different**, and this is not an
+  inconsistency to tidy up: the group is `yourcool.app/v1` (`apiVersion:`), while the API is
+  *served* from `config.yourcool.app`. The group names the customer's API; the subdomain is
+  just where it happens to be reachable.
 - **GitOps** — a deliberately *generic* platform team: no customer brand, no custom domain.
   The examples are intent resources (`DatabaseClaim`) against `platform.example`, so the
   page reads as "any platform team, any repo."

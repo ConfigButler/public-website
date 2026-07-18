@@ -1,5 +1,5 @@
 # author the schema; API, CLI & UI derive from it
-apiVersion: config.yourcool.app/v1
+apiVersion: yourcool.app/v1
 kind: ConfigSchema
 metadata:
   name: menus

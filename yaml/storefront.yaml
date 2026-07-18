@@ -1,5 +1,5 @@
 # streamed to the ordering app on every accepted change
-apiVersion: config.yourcool.app/v1
+apiVersion: yourcool.app/v1
 kind: Storefront
 metadata:
   name: flagship
