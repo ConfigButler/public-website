@@ -1,11 +1,11 @@
 apiVersion: configbutler.ai/v1
 kind: CustomDomain
 metadata:
-  name: yourneat-primary
+  name: yourcool-primary
 spec:
-  domain: config.yourneat.app
+  domain: config.yourcool.app
   tls: auto
 status:
   phase: Active
   certificate: issued
-  url: https://config.yourneat.app
+  url: https://config.yourcool.app

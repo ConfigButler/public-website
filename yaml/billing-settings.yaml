@@ -1,4 +1,4 @@
-apiVersion: config.yourneat.app/v1
+apiVersion: config.yourcool.app/v1
 kind: BillingSettings
 metadata:
   name: production
@@ -10,5 +10,5 @@ spec:
     retries: 3
 status:
   phase: Synced
-  url: https://config.yourneat.app/v1/billingsettings
-  committed: platform-config@a1b9f2e
+  url: https://config.yourcool.app/v1/billingsettings
+  committed: configuration@a1b9f2e

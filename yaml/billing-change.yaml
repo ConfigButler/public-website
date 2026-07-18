@@ -3,5 +3,5 @@ spec:
 status:
   phase: Applied
   conflicts: resolved in realtime
-  pullRequest: yourneat/platform-config#218
-  committed: platform-config@c7d40aa
+  pullRequest: yourcool/configuration#218
+  committed: configuration@c7d40aa

@@ -1,5 +1,5 @@
 # streamed to your app on every accepted change
-apiVersion: config.yourneat.app/v1
+apiVersion: config.yourcool.app/v1
 kind: FeatureSettings
 metadata:
   name: live

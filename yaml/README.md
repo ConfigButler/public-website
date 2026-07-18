@@ -5,9 +5,20 @@ works", the technology page, etc.). This folder is the **single source** — pag
 these files raw and highlight them at build time via `src/components/Yaml.astro`, so
 editing a manifest here updates the site.
 
-They are illustrative but realistic: a fictional customer **yourneat** whose configuration
-API is served from their own custom domain `config.yourneat.app` (default host:
-`yourneat.configbutler.ai`), backed by the Git repo `github.com/yourneat/platform-config`.
+They are illustrative but realistic, and deliberately split across **two worlds** — one per
+door on the site. Keep them distinct when editing:
+
+- **Applications / SaaS** — a fictional customer **YourCool**, whose configuration API is
+  served from their own custom domain `config.yourcool.app` (default host:
+  `yourcool.configbutler.ai`), backed by the Git repo `github.com/yourcool/configuration`.
+  Used by the home hero, Applications, and the SaaS-flavoured Technology examples.
+- **GitOps** — a deliberately *generic* platform team: no customer brand, no custom domain.
+  The examples are intent resources (`DatabaseClaim`) against `platform.example`, so the
+  page reads as "any platform team, any repo."
+
+The GitOps examples must **not** adopt the YourCool naming. The two doors use two different
+worlds on purpose: it shows ConfigButler serves both without forcing one narrative onto the
+other.
 
 | File | Kind | Shown on |
 |------|------|----------|

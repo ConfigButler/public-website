@@ -1,4 +1,4 @@
-apiVersion: platform.yourneat.app/v1
+apiVersion: platform.example/v1
 kind: DatabaseClaim
 metadata:
   name: checkout
@@ -10,4 +10,4 @@ spec:
 status:
   phase: PullRequestOpened
   checks: [schema ok, policy ok]
-  pullRequest: yourneat/platform-config#217
+  pullRequest: platform-config#217

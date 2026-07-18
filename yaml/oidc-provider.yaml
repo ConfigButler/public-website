@@ -1,13 +1,13 @@
 apiVersion: configbutler.ai/v1
 kind: OIDCProvider
 metadata:
-  name: yourneat-customers
+  name: yourcool-customers
 spec:
-  issuer: https://login.yourneat.app
+  issuer: https://login.yourcool.app
   clientId: configbutler
   claims:
     tenant: org_id
     email: email
 status:
   phase: Connected
-  audience: config.yourneat.app
+  audience: config.yourcool.app
