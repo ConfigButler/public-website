@@ -10,6 +10,10 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "5.10.2"
+    "astro": "^6.4.8"
+  },
+  "devDependencies": {
+    "feather-icons": "^4.29.2",
+    "lucide-static": "^1.25.0"
   }
 }

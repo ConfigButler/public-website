@@ -1,7 +1,15 @@
 ---
+import fs from 'node:fs';
+import path from 'node:path';
 import Layout from '../layouts/Layout.astro';
 import Icon from '../components/Icon.astro';
 import Mark from '../components/Mark.astro';
+
+// Founder photo: first of these that exists in public/ is used; otherwise the dome
+// mark stands in — so the site is always safe to ship. Swap the order to change photo.
+const publicDir = path.resolve('public');
+const founderPhoto = ['simon-2026.webp', 'simon-2025.webp', 'founder.jpg', 'founder.png', 'founder.webp']
+	.find((f) => fs.existsSync(path.join(publicDir, f)));
 ---
 <Layout
 	title="About ConfigButler: founder-led, built in public"
@@ -28,7 +36,7 @@ import Mark from '../components/Mark.astro';
 	<section class="sect">
 		<div class="wrap wrap--narrow">
 			<div class="founder rv">
-				<div class="avatar"><Mark size={84} /></div>
+				<div class="avatar">{founderPhoto ? <img src={`/${founderPhoto}`} alt="Simon Koudijs" width="132" height="132" /> : <Mark size={84} />}</div>
 				<div>
 					<span class="eyebrow"><span class="b">founder</span></span>
 					<div class="fname" style="margin-top:10px">Simon Koudijs</div>
@@ -38,6 +46,16 @@ import Mark from '../components/Mark.astro';
 						speaker/trainer working on GitOps, Kubernetes, API-first configuration, and software delivery.
 						He works at the intersection of these worlds, and builds in public.
 					</p>
+					<figure class="fnote">
+						<blockquote>
+							Configuration is where good systems quietly go wrong — spread across files, env vars,
+							and dashboards, with no typed contract and no honest history. I don't think it should
+							work that way. ConfigButler is my attempt to give configuration a real typed API and a
+							Git-backed record you can actually trust — built in the open, with a small number of
+							early teams. If that's a problem you recognise, I'd genuinely like to hear from you.
+						</blockquote>
+						<figcaption>— Simon</figcaption>
+					</figure>
 					<div class="social">
 						<a class="social-btn" href="https://github.com/ConfigButler" target="_blank" rel="noopener"><Icon name="github" /> GitHub</a>
 						<a class="social-btn" href="https://www.linkedin.com/company/configbutler" target="_blank" rel="noopener"><Icon name="link" /> LinkedIn</a>

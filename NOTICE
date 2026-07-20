@@ -1,0 +1,28 @@
+ConfigButler public website
+============================
+
+Third-party graphics and their licenses
+---------------------------------------
+
+Icons (src/lib/icons.ts -> src/components/Icon.astro)
+  No icon path data is stored in this repository. Glyph geometry is read at BUILD
+  TIME straight from the installed npm packages listed below; src/lib/icons.ts only
+  maps our own semantic names to the upstream icon names. Update art with `npm update`.
+
+  • Lucide — ISC License — https://lucide.dev — package: lucide-static@1.25.0
+    Used for every icon except `github`. Full license: node_modules/lucide-static/LICENSE
+    Copyright (c) for portions of Lucide are held by Lucide Contributors 2022.
+    Copyright (c) for portions from Feather are held by Cole Bemis 2013-2022.
+
+  • Feather — MIT License — https://feathericons.com — package: feather-icons@4.29.2
+    Used for the `github` icon only (Lucide no longer ships brand marks).
+    Copyright (c) 2013-2017 Cole Bemis. Full license: node_modules/feather-icons/LICENSE
+
+Footer brand marks (src/components/Footer.astro)
+  • Simple Icons — CC0 1.0 Universal (public domain) — https://simpleicons.org
+    The filled GitHub and LinkedIn logos in the footer social row.
+
+Brand mark
+  The ConfigButler dome/cloche mark (src/components/Mark.astro,
+  public/favicon.svg, public/logo_mark.svg) is original work owned by
+  ConfigButler and is not covered by the third-party licenses above.
