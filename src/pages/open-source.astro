@@ -5,17 +5,17 @@ import Icon from '../components/Icon.astro';
 const repos = [
 	{
 		name: 'GitOps Reverser', tag: 'engine', lang: 'Go', langColor: '#3178c6', license: 'Apache-2.0',
-		repo: 'ConfigButler/gitops-reverser',
+		url: 'https://github.com/ConfigButler/gitops-reverser', label: 'github.com/ConfigButler/gitops-reverser',
 		desc: 'The open-source engine for turning API activity into clean YAML commits in Git. The reconciliation core behind the durable record.',
 	},
 	{
 		name: 'KRM Stream', tag: 'streaming', lang: 'Go', langColor: '#3178c6', license: 'Apache-2.0',
-		repo: 'ConfigButler/krm-stream',
+		url: 'https://github.com/ConfigButler/krm-stream', label: 'github.com/ConfigButler/krm-stream',
 		desc: 'Streaming tooling for Kubernetes-style resource flows and realtime watches: the plumbing for live change propagation.',
 	},
 	{
 		name: 'Reverse GitOps', tag: 'ideas', lang: 'Writing', langColor: '#8aa097', license: 'Open',
-		repo: 'ConfigButler',
+		url: 'https://reversegitops.dev', label: 'reversegitops.dev', icon: 'link',
 		desc: 'The broader operating model and set of ideas behind this work: why an API belongs in front of Git, not instead of it.',
 	},
 ];
@@ -53,14 +53,14 @@ const repos = [
 			</div>
 			<div class="grid grid-3">
 				{repos.map((r) => (
-					<a class="repo rv" href={`https://github.com/${r.repo}`} target="_blank" rel="noopener">
-						<div class="repo-top"><Icon name="github" class="gh" /><span class="pill pill-brass">{r.tag}</span></div>
+					<a class="repo rv" href={r.url} target="_blank" rel="noopener">
+						<div class="repo-top"><Icon name={r.icon ?? 'github'} class="gh" /><span class="pill pill-brass">{r.tag}</span></div>
 						<h3>{r.name}</h3>
 						<p>{r.desc}</p>
 						<div class="repo-meta">
 							<span><span class="dot" style={`background:${r.langColor}`}></span>{r.lang}</span>
 							<span>{r.license}</span>
-							<span>github.com/{r.repo}</span>
+							<span>{r.label}</span>
 						</div>
 					</a>
 				))}
