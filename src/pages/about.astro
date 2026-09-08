@@ -1,15 +1,8 @@
 ---
-import fs from 'node:fs';
-import path from 'node:path';
 import Layout from '../layouts/Layout.astro';
 import Icon from '../components/Icon.astro';
 import Mark from '../components/Mark.astro';
-
-// Founder photo: first of these that exists in public/ is used; otherwise the dome
-// mark stands in — so the site is always safe to ship. Swap the order to change photo.
-const publicDir = path.resolve('public');
-const founderPhoto = ['simon-2026.webp', 'simon-2025.webp', 'founder.jpg', 'founder.png', 'founder.webp']
-	.find((f) => fs.existsSync(path.join(publicDir, f)));
+import { founderPhoto } from '../lib/founder';
 ---
 <Layout
 	title="About ConfigButler: founder-led, built in public"
@@ -36,7 +29,7 @@ const founderPhoto = ['simon-2026.webp', 'simon-2025.webp', 'founder.jpg', 'foun
 	<section class="sect">
 		<div class="wrap wrap--narrow">
 			<div class="founder rv">
-				<div class="avatar">{founderPhoto ? <img src={`/${founderPhoto}`} alt="Simon Koudijs" width="132" height="132" /> : <Mark size={84} />}</div>
+				<div class="avatar">{founderPhoto ? <img src={`/${founderPhoto}`} alt="Simon Koudijs" width="132" height="132" loading="lazy" decoding="async" /> : <Mark size={84} />}</div>
 				<div>
 					<span class="eyebrow"><span class="b">founder</span></span>
 					<div class="fname" style="margin-top:10px">Simon Koudijs</div>

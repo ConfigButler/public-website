@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Icon from '../components/Icon.astro';
 import Mark from '../components/Mark.astro';
 import Yaml from '../components/Yaml.astro';
+import { founderPhoto } from '../lib/founder';
 import menu from '../../yaml/menu.yaml?raw';
 import menuSoldout from '../../yaml/menu-soldout.yaml?raw';
 
@@ -398,7 +399,7 @@ const flow = [
 	<section class="sect tight sect--paper-3" id="founder">
 		<div class="wrap wrap--narrow">
 			<div class="founder rv">
-				<div class="avatar"><Mark size={80} /></div>
+				<div class="avatar">{founderPhoto ? <img src={`/${founderPhoto}`} alt="Simon Koudijs" width="132" height="132" loading="lazy" decoding="async" /> : <Mark size={80} />}</div>
 				<div>
 					<span class="eyebrow"><span class="b">founder-led</span></span>
 					<div class="fname" style="margin-top:10px">Simon Koudijs</div>
