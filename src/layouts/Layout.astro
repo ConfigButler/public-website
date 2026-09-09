@@ -23,6 +23,10 @@ const canonical = new URL(Astro.url.pathname, site).href;
 		<meta name="description" content={description} />
 		<link rel="canonical" href={canonical} />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+		<!-- Discovery for crawlers and agents -->
+		<link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+		<link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt summary of this site" />
 		<meta name="generator" content={Astro.generator} />
 
 		<!-- Open Graph -->

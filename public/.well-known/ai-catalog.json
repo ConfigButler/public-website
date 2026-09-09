@@ -1,0 +1,105 @@
+{
+  "specVersion": "0.1",
+  "host": {
+    "domain": "configbutler.ai",
+    "name": "ConfigButler",
+    "description": "A managed configuration control plane: a typed, schema-validated realtime API for configuration, with every accepted change committed to the customer's own Git repository.",
+    "contact": "https://configbutler.ai/about/#contact"
+  },
+  "entries": [
+    {
+      "id": "urn:air:configbutler.ai:site:overview",
+      "displayName": "ConfigButler product overview",
+      "description": "What ConfigButler is: one managed control plane with two ways in (application configuration and GitOps), and how a request becomes a durable record in Git.",
+      "type": "text/html",
+      "url": "https://configbutler.ai/",
+      "representativeQueries": [
+        "What is ConfigButler?",
+        "managed configuration API backed by Git",
+        "configuration control plane for applications and agents"
+      ]
+    },
+    {
+      "id": "urn:air:configbutler.ai:site:applications",
+      "displayName": "ConfigButler for applications",
+      "description": "Giving an application a typed configuration API — schemas, validation, realtime watches — without building and operating a configuration backend.",
+      "type": "text/html",
+      "url": "https://configbutler.ai/applications/",
+      "representativeQueries": [
+        "typed runtime configuration API for my application",
+        "alternative to storing app settings in config files",
+        "schema-defined settings API with realtime updates"
+      ]
+    },
+    {
+      "id": "urn:air:configbutler.ai:site:gitops",
+      "displayName": "ConfigButler for GitOps",
+      "description": "A realtime API in front of an existing Git repository: people, services, and agents interact through an API instead of editing YAML, and writes become reviewable pull requests.",
+      "type": "text/html",
+      "url": "https://configbutler.ai/gitops/",
+      "representativeQueries": [
+        "API in front of a GitOps repository",
+        "let developers request infrastructure without editing YAML",
+        "self-service platform requests that become pull requests"
+      ]
+    },
+    {
+      "id": "urn:air:configbutler.ai:site:technology",
+      "displayName": "ConfigButler technology and architecture",
+      "description": "How it works: a managed Kubernetes-style control plane as the operational truth, continuously synchronized to a customer-owned Git repository as the durable source of record.",
+      "type": "text/html",
+      "url": "https://configbutler.ai/technology/",
+      "representativeQueries": [
+        "How does ConfigButler work?",
+        "Kubernetes-style control plane synchronized to Git",
+        "KRM API with Git as the source of record"
+      ]
+    },
+    {
+      "id": "urn:air:configbutler.ai:site:open-source",
+      "displayName": "ConfigButler open source work",
+      "description": "The technology developed in public behind ConfigButler: GitOps Reverser, KRM Stream, and the Reverse GitOps operating model.",
+      "type": "text/html",
+      "url": "https://configbutler.ai/open-source/",
+      "representativeQueries": [
+        "ConfigButler open source projects",
+        "what is Reverse GitOps",
+        "GitOps Reverser and KRM Stream"
+      ]
+    },
+    {
+      "id": "urn:air:configbutler.ai:site:about",
+      "displayName": "About ConfigButler and how to make contact",
+      "description": "The company, the founder (Simon Koudijs), and the contact route for demos and design partnerships. This is the human entry point; there is no public product API yet.",
+      "type": "text/html",
+      "url": "https://configbutler.ai/about/",
+      "representativeQueries": [
+        "who is behind ConfigButler",
+        "contact ConfigButler for a demo",
+        "ConfigButler design partnership"
+      ]
+    },
+    {
+      "id": "urn:air:configbutler.ai:index:llms-txt",
+      "displayName": "llms.txt summary of configbutler.ai",
+      "description": "A plain-text summary of the site and its pages, written for language models and agents.",
+      "type": "text/plain",
+      "url": "https://configbutler.ai/llms.txt",
+      "representativeQueries": [
+        "ConfigButler llms.txt",
+        "plain text summary of configbutler.ai"
+      ]
+    },
+    {
+      "id": "urn:air:configbutler.ai:index:sitemap",
+      "displayName": "configbutler.ai sitemap",
+      "description": "The canonical list of crawlable URLs on configbutler.ai.",
+      "type": "application/xml",
+      "url": "https://configbutler.ai/sitemap.xml",
+      "representativeQueries": [
+        "all pages on configbutler.ai",
+        "configbutler.ai sitemap"
+      ]
+    }
+  ]
+}

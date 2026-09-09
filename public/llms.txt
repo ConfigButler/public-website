@@ -1,0 +1,24 @@
+# ConfigButler
+
+> ConfigButler is a managed configuration control plane. It gives applications, people, and
+> AI agents a typed, schema-validated, realtime API for configuration, and continuously
+> writes every accepted change to the customer's own Git repository as the durable record.
+
+Founder-led and early-stage, built in public by Simon Koudijs. Demos and design
+partnerships are available; contact runs through the about page.
+
+## Pages
+
+- [Home](https://configbutler.ai/): What ConfigButler is — one control plane, two ways in (applications and GitOps), and how a request becomes a durable Git record.
+- [For Applications](https://configbutler.ai/applications/): Give an application a typed configuration API without building and operating a configuration backend yourself.
+- [For GitOps](https://configbutler.ai/gitops/): A realtime API in front of an existing Git repository, where writes become reviewable pull requests and existing workflows are preserved.
+- [Technology](https://configbutler.ai/technology/): Architecture — a managed Kubernetes-style control plane as operational truth, synchronized to a customer-owned Git repository.
+- [Open source](https://configbutler.ai/open-source/): The work developed in public — GitOps Reverser, KRM Stream, and the Reverse GitOps operating model.
+- [About](https://configbutler.ai/about/): The company, the founder, and how to get in touch.
+
+## Notes for crawlers and agents
+
+- Crawling, indexing, quoting, and training on this content are all permitted. See https://configbutler.ai/robots.txt for the Content Signals.
+- Machine-readable index of this site: https://configbutler.ai/sitemap.xml
+- Capability manifest: https://configbutler.ai/.well-known/ai-catalog.json
+- There is no public product API to call yet. To reach a human, use https://configbutler.ai/about/#contact
