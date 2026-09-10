@@ -33,7 +33,7 @@ const updated = '10 September 2026';
 		<div class="wrap">
 			<div class="grid grid-4">
 				<div class="f rv"><span class="fi"><Icon name="lock" /></span><div class="ft">Never sold</div><div class="fd">Your personal information is not sold, rented, traded, or shared for advertising.</div></div>
-				<div class="f rv"><span class="fi"><Icon name="scan" /></span><div class="ft">No tracking</div><div class="fd">No analytics, no advertising cookies, no profiling, no third-party trackers on this site.</div></div>
+				<div class="f rv"><span class="fi"><Icon name="scan" /></span><div class="ft">No ad tracking</div><div class="fd">No advertising networks, no profiling, no following you around the web. If we measure anything, it's pages, not people.</div></div>
 				<div class="f rv"><span class="fi"><Icon name="doc" /></span><div class="ft">Minimum data</div><div class="fd">Your name, your email, and whatever you chose to tell us. That's the whole list.</div></div>
 				<div class="f rv"><span class="fi"><Icon name="x" /></span><div class="ft">Deleted on request</div><div class="fd">Email us and your personal data goes away — bar the change history you asked us to keep.</div></div>
 			</div>
@@ -60,16 +60,24 @@ const updated = '10 September 2026';
 				<a class="link" href="https://web3forms.com/privacy" target="_blank" rel="noopener">Web3Forms</a>,
 				which passes the message on and does not use it for anything else.
 			</p>
-			<h3>If you sign in with LinkedIn</h3>
+			<h3>If you sign in through another provider</h3>
 			<p>
-				When you use <strong>Sign in with LinkedIn</strong>, LinkedIn sends us only the basic profile
-				fields you approve on LinkedIn's own consent screen: your name, profile headline, profile
-				picture, and email address. We use them to create your account and to know who is signed in.
+				You can sign in using an account you already have — LinkedIn today, and likely other providers
+				such as GitHub, Google, or your company's own identity provider in future. This is standard
+				OAuth: you approve the request on the provider's own consent screen, we never see your
+				password, and you can revoke our access from the provider at any time. On LinkedIn that is
+				<strong>Settings &amp; Privacy → Data privacy → Permitted services</strong>.
 			</p>
 			<p>
-				We do not post on your behalf, we do not read your feed, your messages, or your connections,
-				and we do not request access to them. You can revoke our access at any time from
-				<strong>Settings &amp; Privacy → Data privacy → Permitted services</strong> on LinkedIn.
+				<strong>We design these integrations for least privilege, always.</strong> We ask for the
+				narrowest set of permissions that makes the feature work, and nothing kept "just in case". If
+				a feature needs more access, we will ask for it then — not up front.
+			</p>
+			<p>
+				With <strong>Sign in with LinkedIn</strong>, that means the basic profile fields you approve:
+				your name, profile headline, profile picture, and email address. We use them to create your
+				account and to know who is signed in. We do not post on your behalf, and we do not read your
+				feed, your messages, or your connections — we do not even ask for permission to.
 			</p>
 			<h3>If you use ConfigButler to change configuration</h3>
 			<p>
@@ -114,9 +122,19 @@ const updated = '10 September 2026';
 			<h3>We keep no long-term copy</h3>
 			<p>
 				<strong>The lasting copy of your configuration and its history is the repository owner's, not
-				ours.</strong> We do not keep a separate archive of it. What we hold is a working checkout —
-				a local copy of the folder, so we can make changes in your name — and nothing beyond what
-				that requires.
+				ours.</strong> We keep no separate archive of it. What we hold is a working copy — a checkout
+				of the folder that the service needs in order to run, and to make the commits you asked us to
+				make in your name. Nothing beyond what that requires.
+			</p>
+			<p>
+				Those working copies are not persisted as a record of their own. <strong>When our access to
+				your repository ends — you revoke it, or you stop using ConfigButler — we delete our
+				copies.</strong>
+			</p>
+			<p>
+				One consequence is worth being blunt about: <strong>we are not your backup.</strong> There is
+				no archive to restore from on our side. Keeping your repository backed up is the owner's
+				responsibility, and it should not be us.
 			</p>
 
 			<h3>Removing your name and email</h3>
@@ -161,12 +179,18 @@ const updated = '10 September 2026';
 			<ul>
 				<li><strong>GitHub Pages</strong> — hosts this website.</li>
 				<li><strong>Web3Forms</strong> — delivers contact form submissions to our inbox.</li>
-				<li><strong>LinkedIn</strong> — handles sign-in, if you choose to use it.</li>
+				<li><strong>LinkedIn</strong>, or another sign-in provider you choose — handles authentication.</li>
 				<li><strong>Our email provider</strong> — carries the mail we exchange with you.</li>
 			</ul>
 			<p>
-				Beyond that, we disclose personal information only if the law requires it. If ConfigButler is
-				ever acquired, we will say so here before your data moves anywhere.
+				Beyond that, we disclose personal information only if the law requires it.
+			</p>
+			<p>
+				If ConfigButler is ever sold, merged, or acquired, personal data may transfer to the buyer as
+				part of that — which is normal, and we would rather say so plainly than pretend otherwise.
+				What we commit to is that the buyer is bound by the promises on this page, that we will tell
+				account holders it has happened, and that you can delete your data if you would rather not
+				continue.
 			</p>
 
 			<h2>How long we keep it</h2>
@@ -191,12 +215,24 @@ const updated = '10 September 2026';
 				data protection authority — in the Netherlands, the Autoriteit Persoonsgegevens.
 			</p>
 
-			<h2>Cookies</h2>
+			<h2>Cookies and measurement</h2>
 			<p>
-				This website uses no cookies at all. If you sign in to a ConfigButler application, we use a
-				strictly necessary session cookie to keep you signed in. Nothing on this site is used for
-				tracking or advertising.
+				<strong>Today this website sets no cookies and runs no analytics at all.</strong> If you sign
+				in to a ConfigButler application, we use a strictly necessary session cookie to keep you
+				signed in — nothing more.
 			</p>
+			<p>
+				That may change. We would like to understand how people use the site — which pages get read,
+				where the explanation loses them, what nobody can find. If we do turn on measurement, these
+				are the limits we are binding ourselves to:
+			</p>
+			<ul>
+				<li><strong>Pages, not people.</strong> Aggregate usage, to improve the site. Not building a profile of you.</li>
+				<li><strong>No advertising networks</strong>, no cross-site tracking, no data sold or shared with data brokers.</li>
+				<li><strong>No session recording</strong> — we will not replay what you typed or where you moved your mouse.</li>
+				<li><strong>Privacy-first tooling</strong>, hosted in the EU where we can, configured to anonymise IP addresses.</li>
+				<li><strong>Named here first.</strong> We will list the provider on this page, and update the date at the top, before it goes live — and ask for your consent where the law requires it.</li>
+			</ul>
 
 			<h2>Security</h2>
 			<p>
