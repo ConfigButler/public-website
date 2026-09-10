@@ -35,7 +35,7 @@ const updated = '10 September 2026';
 				<div class="f rv"><span class="fi"><Icon name="lock" /></span><div class="ft">Never sold</div><div class="fd">Your personal information is not sold, rented, traded, or shared for advertising.</div></div>
 				<div class="f rv"><span class="fi"><Icon name="scan" /></span><div class="ft">No tracking</div><div class="fd">No analytics, no advertising cookies, no profiling, no third-party trackers on this site.</div></div>
 				<div class="f rv"><span class="fi"><Icon name="doc" /></span><div class="ft">Minimum data</div><div class="fd">Your name, your email, and whatever you chose to tell us. That's the whole list.</div></div>
-				<div class="f rv"><span class="fi"><Icon name="x" /></span><div class="ft">Deleted on request</div><div class="fd">Email us and your data goes away. No forms, no retention games.</div></div>
+				<div class="f rv"><span class="fi"><Icon name="x" /></span><div class="ft">Deleted on request</div><div class="fd">Email us and your personal data goes away — bar the change history you asked us to keep.</div></div>
 			</div>
 		</div>
 	</section>
@@ -52,7 +52,7 @@ const updated = '10 September 2026';
 			</p>
 
 			<h2>What we collect</h2>
-			<p>There are exactly three ways we end up with your personal information.</p>
+			<p>There are exactly four ways we end up with your personal information.</p>
 			<h3>If you contact us</h3>
 			<p>
 				The contact form takes your <strong>name</strong>, <strong>email address</strong>, and the
@@ -71,6 +71,23 @@ const updated = '10 September 2026';
 				and we do not request access to them. You can revoke our access at any time from
 				<strong>Settings &amp; Privacy → Data privacy → Permitted services</strong> on LinkedIn.
 			</p>
+			<h3>If you use ConfigButler to change configuration</h3>
+			<p>
+				This one is the product, not a side effect. ConfigButler exists to keep an honest record of
+				who changed what, so <strong>every change you make is stored together with your name and
+				your email address</strong>, the time you made it, and exactly what you changed.
+			</p>
+			<p>
+				That record is written to your organisation's own Git repository as an ordinary commit, with
+				you as the commit author — the same attribution any Git history carries. It is what makes the
+				history reviewable and auditable, and it is the reason people can trust the record later.
+			</p>
+			<p>
+				We use that attribution for nothing else. It is not analysed, not scored, and never shared
+				outside your organisation. The repository belongs to your organisation, which decides who can
+				read it; we hold it on their behalf.
+			</p>
+
 			<h3>If you just visit the site</h3>
 			<p>
 				This website is static and hosted on GitHub Pages, which keeps short-lived server logs
@@ -83,6 +100,7 @@ const updated = '10 September 2026';
 			<ul>
 				<li>To reply to you when you get in touch.</li>
 				<li>To authenticate you and run your account, if you have one.</li>
+				<li>To attribute each configuration change to the person who made it.</li>
 				<li>To keep the service working and secure.</li>
 			</ul>
 			<p>
@@ -117,6 +135,13 @@ const updated = '10 September 2026';
 			<p>
 				Contact emails are kept while the conversation is useful, and deleted when it isn't. Account
 				data is kept while your account exists and is removed when you delete it or ask us to.
+			</p>
+			<p>
+				<strong>Change history is the deliberate exception.</strong> An audit trail that could be
+				quietly rewritten would be worthless, so the name and email recorded against a change stay in
+				your organisation's Git history even after you close your account. That history lives in your
+				organisation's repository and is theirs to keep or erase — if you need your attribution
+				removed from it, ask them, and we will help them do it.
 			</p>
 
 			<h2>Your rights</h2>
