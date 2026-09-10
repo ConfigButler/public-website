@@ -60,24 +60,31 @@ const updated = '10 September 2026';
 				<a class="link" href="https://web3forms.com/privacy" target="_blank" rel="noopener">Web3Forms</a>,
 				which passes the message on and does not use it for anything else.
 			</p>
-			<h3>If you sign in through another provider</h3>
+			<h3>If you sign in with LinkedIn or GitHub</h3>
 			<p>
-				You can sign in using an account you already have — LinkedIn today, and likely other providers
-				such as GitHub, Google, or your company's own identity provider in future. This is standard
-				OAuth: you approve the request on the provider's own consent screen, we never see your
-				password, and you can revoke our access from the provider at any time. On LinkedIn that is
-				<strong>Settings &amp; Privacy → Data privacy → Permitted services</strong>.
+				You sign in with an account you already have. Today that is <strong>LinkedIn</strong> or
+				<strong>GitHub</strong>. Both use standard OAuth: you approve the request on the provider's own
+				consent screen, we never see your password, and you can revoke our access from the provider
+				whenever you want. On LinkedIn that is
+				<strong>Settings &amp; Privacy → Data privacy → Permitted services</strong>; on GitHub it is
+				<strong>Settings → Applications</strong>.
 			</p>
 			<p>
-				<strong>We design these integrations for least privilege, always.</strong> We ask for the
-				narrowest set of permissions that makes the feature work, and nothing kept "just in case". If
-				a feature needs more access, we will ask for it then — not up front.
+				<strong>LinkedIn</strong> gives us the basic profile fields you approve — your name, profile
+				headline, profile picture, and email address. We use them to create your account and to know
+				who is signed in. We do not post on your behalf, and we do not read your feed, your messages,
+				or your connections. We do not ask for permission to.
 			</p>
 			<p>
-				With <strong>Sign in with LinkedIn</strong>, that means the basic profile fields you approve:
-				your name, profile headline, profile picture, and email address. We use them to create your
-				account and to know who is signed in. We do not post on your behalf, and we do not read your
-				feed, your messages, or your connections — we do not even ask for permission to.
+				<strong>GitHub</strong> does two jobs. It signs you in the same way LinkedIn does. And, if you
+				choose, it is how you hand ConfigButler access to one of your own repositories — which is the
+				product: your repository becomes editable through an API, with every change committed back to
+				it in your name. You grant that access per repository, you can see exactly which ones you have
+				connected, and revoking it on GitHub cuts us off immediately.
+			</p>
+			<p>
+				We ask for the narrowest access that makes a feature work, and nothing held "just in case". If
+				something needs more, we will ask for it then rather than up front.
 			</p>
 			<h3>If you use ConfigButler to change configuration</h3>
 			<p>
@@ -160,8 +167,8 @@ const updated = '10 September 2026';
 				<li>To keep the service working and secure.</li>
 			</ul>
 			<p>
-				That is the complete list. We do not use your information to build advertising profiles, and
-				we will not use it for a new purpose without asking you first.
+				We do not use your information to build advertising profiles, and we will not quietly
+				repurpose it for something unrelated.
 			</p>
 
 			<h2>What we never do</h2>
@@ -179,11 +186,12 @@ const updated = '10 September 2026';
 			<ul>
 				<li><strong>GitHub Pages</strong> — hosts this website.</li>
 				<li><strong>Web3Forms</strong> — delivers contact form submissions to our inbox.</li>
-				<li><strong>LinkedIn</strong>, or another sign-in provider you choose — handles authentication.</li>
+				<li><strong>LinkedIn</strong> and <strong>GitHub</strong> — handle sign-in.</li>
 				<li><strong>Our email provider</strong> — carries the mail we exchange with you.</li>
 			</ul>
 			<p>
-				Beyond that, we disclose personal information only if the law requires it.
+				Beyond that, we do not hand your personal information to anyone unless we are legally compelled
+				to.
 			</p>
 			<p>
 				If ConfigButler is ever sold, merged, or acquired, personal data may transfer to the buyer as
@@ -222,17 +230,12 @@ const updated = '10 September 2026';
 				signed in — nothing more.
 			</p>
 			<p>
-				That may change. We would like to understand how people use the site — which pages get read,
-				where the explanation loses them, what nobody can find. If we do turn on measurement, these
-				are the limits we are binding ourselves to:
+				That may change — knowing which pages get read and where an explanation loses people is
+				genuinely useful, and we would like to see it. If we add measurement, it will be to make the
+				product and this site better. It will not be used to build a profile of you to sell, and your
+				behaviour will not be handed to advertising networks or data brokers. We will say so here when
+				it changes.
 			</p>
-			<ul>
-				<li><strong>To improve the product, not to profile you.</strong> We want to know which pages get read and where the explanation loses people. We are not building a picture of you as a person, and we are certainly not selling one.</li>
-				<li><strong>No advertising networks</strong>, no cross-site tracking, no data sold or shared with data brokers.</li>
-				<li><strong>If we record sessions, we mask what you type.</strong> Watching where an interface trips people up is genuinely useful; reading what someone typed into a field is not the point, and we will keep form input masked by default.</li>
-				<li><strong>Privacy-first tooling</strong>, hosted in the EU where we can, configured to anonymise IP addresses.</li>
-				<li><strong>Named here first, and asked for.</strong> We will list the provider on this page and update the date at the top before it goes live — and ask your permission first, which for anything that records a session or identifies a device means asking every time.</li>
-			</ul>
 
 			<h2>Security</h2>
 			<p>
