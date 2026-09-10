@@ -73,25 +73,9 @@ const updated = '10 September 2026';
 			</p>
 			<h3>If you use ConfigButler to change configuration</h3>
 			<p>
-				This one is the product, not a side effect. ConfigButler exists to keep an honest record of
-				who changed what, so <strong>every change you make is stored together with your name and
-				your email address</strong>, the time you made it, and exactly what you changed.
-			</p>
-			<p>
-				That record is written to your organisation's own Git repository as an ordinary commit, with
-				you as the commit author — the same attribution any Git history carries. It is what makes the
-				history reviewable and auditable, and it is the reason people can trust the record later.
-			</p>
-			<p>
-				We use that attribution for nothing else. It is not analysed, not scored, and never shared
-				outside your organisation.
-			</p>
-			<p>
-				<strong>That Git repository is yours, and keeping it safe is your responsibility.</strong> It
-				lives where you chose to put it — GitHub, GitLab, your own server — and you decide who can
-				clone, read, or fork it. Anyone you grant read access can see every name and email address in
-				the history, and if you make the repository public, that attribution is public too. Access
-				control, credentials, and backups for that repository are yours to manage, not ours.
+				Every change you make is recorded with your <strong>name</strong> and <strong>email
+				address</strong>. That is the heart of what ConfigButler does, so it gets
+				<a class="link" href="#your-repository">a section of its own</a> below.
 			</p>
 
 			<h3>If you just visit the site</h3>
@@ -100,6 +84,54 @@ const updated = '10 September 2026';
 				(including IP addresses) for security and abuse prevention. Fonts are loaded from Google
 				Fonts, so your browser's request reaches Google. We set no cookies of our own and run no
 				analytics here.
+			</p>
+
+			<h2 id="your-repository">Your configuration, and your Git repository</h2>
+			<p>
+				Your configuration is stored in a <strong>Git repository</strong>. In plain terms, that is a
+				folder of files that also remembers its own history: every change ever made to it, kept in
+				order, and never silently overwritten.
+			</p>
+			<p>
+				Each individual change is called a <strong>commit</strong>, and a commit records three
+				things — what changed, when it changed, and <strong>who changed it, by name and email
+				address</strong>. That last part is the point. It is how a change can be traced back to a
+				real person months later, and it is why the history is worth keeping at all. We use it for
+				nothing else: it is not analysed, not scored, and never shared outside your organisation.
+			</p>
+
+			<div class="grid grid-2" style="margin-top:1.8rem">
+				<div class="f"><span class="fi"><Icon name="shield" /></span>
+					<div class="ft">If you own the repository</div>
+					<div class="fd">The folder and its history are yours. You choose where it is hosted and who can read, clone, or fork it — and you are responsible for the personal data inside it, including keeping it secure and backed up.</div>
+				</div>
+				<div class="f"><span class="fi"><Icon name="users" /></span>
+					<div class="ft">If you are making the changes</div>
+					<div class="fd">Your name and email address sit in that history, and anyone with access to the repository can read them. If the owner makes the repository public, so is your name. The owner controls that record — usually your employer, not us.</div>
+				</div>
+			</div>
+
+			<h3>We keep no long-term copy</h3>
+			<p>
+				<strong>The lasting copy of your configuration and its history is the repository owner's, not
+				ours.</strong> We do not keep a separate archive of it. What we hold is a working checkout —
+				a local copy of the folder, so we can make changes in your name — and nothing beyond what
+				that requires.
+			</p>
+
+			<h3>Removing your name and email</h3>
+			<p>
+				Because the history belongs to the repository owner, <strong>they are the ones who can remove
+				personal data from it</strong>. Start there. In most cases it is genuinely not ours to
+				rewrite, and that is exactly what makes the record trustworthy — a history we could quietly
+				edit on request would not be worth keeping.
+			</p>
+			<p>
+				Tell us as well, at
+				<a class="link" href="mailto:simon@configbutler.ai">simon@configbutler.ai</a>. We will do
+				everything we can: removing your name and email address ourselves where the owner asks us to
+				and it is technically possible, helping them do it where it isn't, and telling you plainly if
+				it cannot be done.
 			</p>
 
 			<h2>What we use it for</h2>
@@ -143,11 +175,11 @@ const updated = '10 September 2026';
 				data is kept while your account exists and is removed when you delete it or ask us to.
 			</p>
 			<p>
-				<strong>Change history is the deliberate exception.</strong> An audit trail that could be
-				quietly rewritten would be worthless, so the name and email recorded against a change stay in
-				your organisation's Git history even after you close your account. That history lives in your
-				organisation's repository and is theirs to keep or erase — if you need your attribution
-				removed from it, ask them, and we will help them do it.
+				<strong>Change history is the deliberate exception.</strong> The name and email recorded
+				against a change stay in the Git history even after you close your account, because an audit
+				trail that could be quietly rewritten would be worthless. That history is the repository
+				owner's to keep or erase — see
+				<a class="link" href="#your-repository">your configuration, and your Git repository</a>.
 			</p>
 
 			<h2>Your rights</h2>
