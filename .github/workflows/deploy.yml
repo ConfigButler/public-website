@@ -19,7 +19,7 @@ jobs:
           # external/gitops-reverser feeds the documentation corner.
           submodules: true
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
       - name: Install, build, and upload your site
         uses: withastro/action@v4
 
