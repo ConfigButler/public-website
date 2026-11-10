@@ -4,9 +4,17 @@
     "dockerfile": "Dockerfile",
     "context": "."
   },
-  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/${localWorkspaceFolderBasename},type=bind",
+  // The workspace is mounted in runArgs below instead, because it needs the SELinux
+  // ":Z" option and Docker's --mount syntax (which workspaceMount uses) has no way to
+  // express it. An empty string tells the Dev Containers CLI to add no mount itself.
+  "workspaceMount": "",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   "runArgs": [
+    // ":Z" privately relabels this one folder for this one container, so SELinux
+    // (Fedora, RHEL) lets it read the workspace and nothing else in your home. Without
+    // it the container gets "Permission denied" on every project file. Hosts without
+    // SELinux ignore the option. See README.md "SELinux" for why not label=disable.
+    "--volume=${localWorkspaceFolder}:/workspaces/${localWorkspaceFolderBasename}:Z",
     "--add-host=host.docker.internal:host-gateway",
     // Reaps zombie processes; Playwright leaves browser children behind otherwise.
     "--init",

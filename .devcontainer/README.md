@@ -73,6 +73,43 @@ up and the step can be rerun by hand.
 The shared names are deliberate: log in to Claude, Codex or `gh` once and both devcontainers keep
 it across rebuilds.
 
+## SELinux (Fedora, RHEL)
+
+With SELinux enforcing and `dockerd --selinux-enabled`, a container runs as `container_t` and may
+not read files labelled `user_home_t`, which is everything under your home directory. A plain bind
+mount therefore gives "Permission denied" on every project file, and the host shows SELinux alerts.
+
+The workspace is mounted with `:Z` instead, in `runArgs`, because Docker's `--mount` syntax (which
+`workspaceMount` uses) cannot express it; `workspaceMount` is set to `""` so the Dev Containers CLI
+adds no mount of its own. `:Z` relabels **only this folder** to `container_file_t` with a pair of
+SELinux categories unique to this container:
+
+```text
+folder:    system_u:object_r:container_file_t:s0:c103,c969
+container: system_u:system_r:container_t:s0:c103,c969
+```
+
+So the container reads its workspace and nothing else in your home, other containers cannot read
+the workspace, and your own (unconfined) host user keeps full access. Hosts without SELinux ignore
+the option.
+
+What this deliberately avoids:
+
+- `--security-opt label=disable` switches SELinux confinement off for the whole container.
+- The `audit2allow` / `semodule` module the SELinux alert suggests would let **every** container
+  read **all** of your home directory.
+
+Practicalities:
+
+- The relabel happens when the container is created, so changing it needs **Rebuild Container**,
+  not just a reopen. Each rebuild picks new categories and relabels again; for this repo that is
+  quick.
+- New files inherit the folder's label. A file *moved* in from elsewhere keeps its old label and is
+  unreadable in the container until the next rebuild, or `chcon -R --reference=. <path>` on the host.
+- To undo the relabel on the host: `restorecon -R <repo path>`.
+
+Check from the host with `ls -Zd .` and `docker inspect -f '{{.ProcessLabel}}' <container>`.
+
 ## Playwright
 
 The image installs Playwright's browsers into `/ms-playwright` (`PLAYWRIGHT_BROWSERS_PATH`) at
@@ -154,6 +191,11 @@ Common causes: no host `ssh-agent`, no key loaded into it, or `user.email` missi
 
 The `@playwright/test` version and `PLAYWRIGHT_VERSION` in the Dockerfile differ. Align them and
 rebuild, or as a stopgap run `npx playwright install chromium`.
+
+### "Permission denied" On Every Project File, SELinux Alerts On The Host
+
+The workspace was mounted without the `:Z` relabel, for example by a container created before this
+was added. Run `Dev Containers: Rebuild Container`. See [SELinux](#selinux-fedora-rhel).
 
 ### `external/gitops-reverser` Is Empty
 
