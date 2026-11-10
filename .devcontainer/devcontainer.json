@@ -1,0 +1,78 @@
+{
+  "name": "configbutler.ai website",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "."
+  },
+  // The workspace is mounted in runArgs below instead, because it needs the SELinux
+  // ":Z" option and Docker's --mount syntax (which workspaceMount uses) has no way to
+  // express it. An empty string tells the Dev Containers CLI to add no mount itself.
+  "workspaceMount": "",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "runArgs": [
+    // ":Z" privately relabels this one folder for this one container, so SELinux
+    // (Fedora, RHEL) lets it read the workspace and nothing else in your home. Without
+    // it the container gets "Permission denied" on every project file. Hosts without
+    // SELinux ignore the option. See README.md "SELinux" for why not label=disable.
+    "--volume=${localWorkspaceFolder}:/workspaces/${localWorkspaceFolderBasename}:Z",
+    "--add-host=host.docker.internal:host-gateway",
+    // Reaps zombie processes; Playwright leaves browser children behind otherwise.
+    "--init",
+    // Chromium uses /dev/shm heavily, and Docker's 64MB default makes it crash
+    // mid-test. A larger shm is the narrower fix than Playwright's --ipc=host advice.
+    "--shm-size=2g",
+    // Cap the devcontainer so a runaway build or browser is OOM-killed inside the
+    // container instead of starving the host.
+    "--memory=8g",
+    "--memory-swap=12g"
+  ],
+  "forwardPorts": [
+    4321,
+    9323
+  ],
+  "portsAttributes": {
+    "4321": {
+      "label": "Astro (dev / preview)",
+      "onAutoForward": "notify"
+    },
+    "9323": {
+      "label": "Playwright report",
+      "onAutoForward": "silent"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      },
+      "extensions": [
+        "astro-build.astro-vscode",
+        "ms-playwright.playwright",
+        "DavidAnson.vscode-markdownlint",
+        // Pinned in gitops-reverser: 26.1021.22027's webview never renders in the
+        // devcontainer (renderer_ready_timeout). Unpin together with that repo.
+        "openai.chatgpt@26.1007.21434",
+        "anthropic.claude-code"
+      ]
+    }
+  },
+  "postCreateCommand": "bash .devcontainer/post-create.sh '${containerWorkspaceFolder}'",
+  "postStartCommand": "bash .devcontainer/post-start.sh '${containerWorkspaceFolder}'",
+  "remoteUser": "vscode",
+  "mounts": [
+    // These four names are the SAME volumes the gitops-reverser devcontainer uses, on
+    // purpose: logging in to Claude, Codex or gh once covers both projects.
+    "source=codexconfig,target=/home/vscode/.codex,type=volume",
+    "source=claudeconfig,target=/home/vscode/.claude,type=volume",
+    "source=ghconfig,target=/home/vscode/.config/gh,type=volume",
+    "source=persisted-home,target=/home/vscode/persisted-home,type=volume",
+    // Project-specific: keeps `npm ci` fast across rebuilds.
+    "source=configbutler-website-npmcache,target=/home/vscode/.npm,type=volume"
+  ],
+  "containerEnv": {
+    "HOST_PROJECT_PATH": "${localWorkspaceFolder}",
+    "PROJECT_PATH": "/workspaces/${localWorkspaceFolderBasename}",
+    "GIT_USER_NAME": "${localEnv:GIT_USER_NAME}",
+    "GIT_USER_EMAIL": "${localEnv:GIT_USER_EMAIL}"
+  }
+}

@@ -1,0 +1,4 @@
+[submodule "external/gitops-reverser"]
+	path = external/gitops-reverser
+	url = https://github.com/ConfigButler/gitops-reverser.git
+	branch = main
