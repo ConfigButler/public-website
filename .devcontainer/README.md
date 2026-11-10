@@ -145,7 +145,8 @@ No key is cached, so nothing goes stale when a reconnect changes the forwarded s
 
 [`sync-signing-key.sh`](./sync-signing-key.sh) applies that baseline and writes
 `~/.config/git/allowed_signers` so `git log --show-signature` can verify. If an agent key's comment
-contains your Git email, that key is pinned as `user.signingkey`. A `user.signingkey` configured by
+contains your Git email, that key is pinned as `user.signingkey`; after swapping agent keys, re-run
+the script (it also runs on every container start). A `user.signingkey` configured by
 something else is never replaced. The full rationale is in the
 [gitops-reverser devcontainer README](../external/gitops-reverser/.devcontainer/README.md).
 

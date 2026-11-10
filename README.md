@@ -14,6 +14,7 @@ npm install      # install deps
 npm run dev      # local dev server (http://localhost:4321)
 npm run build    # static build → dist/
 npm run preview  # serve the built dist/
+npx playwright install chromium  # once, outside the devcontainer
 npm run test:e2e # Playwright end-to-end tests against the production build
 ```
 

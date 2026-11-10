@@ -137,6 +137,15 @@ keep_public_keys() {
   mv "${tmp}" "${file}"
 }
 
+# Only called when own_pin is true: hands key choice back to defaultKeyCommand
+# instead of signing with a key the agent may no longer hold.
+drop_own_pin() {
+  if [ -n "${configured_key}" ]; then
+    git config --global --unset user.signingkey
+    git config --global --unset "${managed_key_marker}" 2>/dev/null || true
+  fi
+}
+
 if [ "${own_pin}" = false ]; then
   # An externally configured signing key wins over the agent. A platform may
   # deliberately configure a key before invoking this script, and the whole
@@ -161,6 +170,7 @@ else
 
   keep_public_keys "${trusted_keys_file}"
   if [ ! -s "${trusted_keys_file}" ]; then
+    drop_own_pin
     warn "No signing key is available: no user.signingkey is configured and no SSH agent key was found."
     warn "Signing stays mandatory: git commit will fail until a key is available."
     warn "Either load one on your machine (ssh-add ~/.ssh/id_ed25519) and attach a session that"
@@ -185,12 +195,7 @@ else
     git config --global "${managed_key_marker}" "key::${matched_key}"
     log "Signing with the agent key whose comment matches ${git_email}"
   else
-    if [ -n "${configured_key}" ]; then
-      # A previous run of OURS matched, this one does not. Drop the pin rather
-      # than keep signing with a key the agent may no longer hold.
-      git config --global --unset user.signingkey
-      git config --global --unset "${managed_key_marker}" 2>/dev/null || true
-    fi
+    drop_own_pin
     key_count="$(wc -l <"${trusted_keys_file}" | tr -d ' ')"
     if [ "${key_count}" -gt 1 ]; then
       warn "No agent key comment matches ${git_email} and ${key_count} keys are loaded;"
