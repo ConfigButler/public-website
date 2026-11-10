@@ -31,6 +31,9 @@ ENV NODE_MAJOR=24 \
 
 # Base packages, plus the apt repositories for gh and Node.js.
 # openssh-client provides ssh-add/ssh-keygen, which the commit-signing helper needs.
+# locales + en_US.UTF-8: VS Code forwards the host's LANG/LC_* into terminals, and a
+# slim image only ships C.UTF-8, so every bash would warn "setlocale: cannot change
+# locale" without it.
 RUN apt-get update \
     && apt-get -y install --no-install-recommends \
     git \
@@ -47,6 +50,9 @@ RUN apt-get update \
     rsync \
     procps \
     bash-completion \
+    locales \
+    && sed -i 's/^# *\(en_US.UTF-8 UTF-8\)/\1/' /etc/locale.gen \
+    && locale-gen \
     && install -m 0755 -d /etc/apt/keyrings \
     && curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
        -o /etc/apt/keyrings/githubcli-archive-keyring.gpg \
