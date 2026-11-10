@@ -5,6 +5,12 @@ node_modules/
 dist/
 .astro/
 
+# Playwright output
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
 # VS Code
 .vscode/
 
