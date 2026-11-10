@@ -15,6 +15,9 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
+        with:
+          # external/gitops-reverser feeds the documentation corner.
+          submodules: true
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Install, build, and upload your site
