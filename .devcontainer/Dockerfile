@@ -24,7 +24,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # PLAYWRIGHT_BROWSERS -> space-separated subset of: chromium firefox webkit
 # MARKDOWNLINT_CLI2_VERSION -> https://www.npmjs.com/package/markdownlint-cli2?activeTab=versions
 ENV NODE_MAJOR=24 \
-    PLAYWRIGHT_VERSION=1.64.1 \
+    PLAYWRIGHT_VERSION=1.65.0 \
     PLAYWRIGHT_BROWSERS="chromium" \
     MARKDOWNLINT_CLI2_VERSION=0.24.0 \
     PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
