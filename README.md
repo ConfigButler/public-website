@@ -24,6 +24,20 @@ npm run test:e2e # Playwright end-to-end tests against the production build
 SSH commit signing through the host agent). It follows the gitops-reverser devcontainer; see
 [`.devcontainer/README.md`](.devcontainer/README.md).
 
+## Container image
+
+[`.github/workflows/image.yml`](.github/workflows/image.yml) builds the site into an nginx image
+(port 8080, non-root) for every PR and every push to main:
+
+| Tag | Moves? | Use |
+| --- | --- | --- |
+| `ghcr.io/configbutler/public-website:pr-<N>` | yes | latest build of a PR |
+| `ghcr.io/configbutler/public-website:main` | yes | latest main |
+| `ghcr.io/configbutler/public-website:sha-<short>` | no | pin this (PR head or main commit) |
+
+`tests/image.sh` runs the image and checks routing (`/about` and `/about/` serve directly, unknown
+paths 404). Run it locally with Docker: `tests/image.sh`.
+
 ## gitops-reverser submodule
 
 [`external/gitops-reverser`](external/gitops-reverser) is a git submodule of
