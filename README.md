@@ -33,15 +33,7 @@ submodule at build time, unedited. The operator repo is the single source of tru
   other file open on GitHub at the pinned commit.
 - Clone with `--recurse-submodules`, or run `git submodule update --init`. The build fails without it.
 
-Move to a new release:
-
-```sh
-git -C external/gitops-reverser fetch --tags
-git -C external/gitops-reverser checkout v0.57.0
-npm run reverser:pin   # records the commit in src/lib/reverser-pin.json (read by builds without .git)
-npm run build          # prebuild fails if the pin and the submodule disagree
-git add external/gitops-reverser src/lib/reverser-pin.json
-```
+To move to a new release, see [gitops-reverser submodule](#gitops-reverser-submodule).
 
 ## Container image
 
@@ -75,8 +67,11 @@ To move to a new gitops-reverser release:
 git -C external/gitops-reverser fetch --tags
 git -C external/gitops-reverser checkout vX.Y.Z
 git diff --submodule=log         # what changed upstream since the last pin
+npm run reverser:pin             # records the commit in src/lib/reverser-pin.json (for builds without .git)
+npm run build                    # prebuild fails if the pin and the submodule disagree
 # review whether docs or concepts the site relies on changed, then:
-git add external/gitops-reverser && git commit -m "chore: Bump gitops-reverser to vX.Y.Z"
+git add external/gitops-reverser src/lib/reverser-pin.json
+git commit -m "chore: Bump gitops-reverser to vX.Y.Z"
 ```
 
 ## Structure
