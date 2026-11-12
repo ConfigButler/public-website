@@ -24,6 +24,25 @@ npm run test:e2e # Playwright end-to-end tests against the production build
 SSH commit signing through the host agent). It follows the gitops-reverser devcontainer; see
 [`.devcontainer/README.md`](.devcontainer/README.md).
 
+## GitOps Reverser docs
+
+`/reverser` renders Markdown from the [gitops-reverser](https://github.com/ConfigButler/gitops-reverser)
+submodule at build time, unedited. The operator repo is the single source of truth; fix content there.
+
+- Which files get a route: `docs` in [`src/lib/reverser.ts`](src/lib/reverser.ts). Links to any
+  other file open on GitHub at the pinned commit.
+- Clone with `--recurse-submodules`, or run `git submodule update --init`. The build fails without it.
+
+Move to a new release:
+
+```sh
+git -C external/gitops-reverser fetch --tags
+git -C external/gitops-reverser checkout v0.57.0
+npm run reverser:pin   # records the commit in src/lib/reverser-pin.json (read by builds without .git)
+npm run build          # prebuild fails if the pin and the submodule disagree
+git add external/gitops-reverser src/lib/reverser-pin.json
+```
+
 ## Container image
 
 [`.github/workflows/image.yml`](.github/workflows/image.yml) builds the site into an nginx image
