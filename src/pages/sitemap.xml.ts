@@ -1,12 +1,14 @@
 import type { APIRoute } from 'astro';
+import { docs, route } from '../lib/reverser';
 
 // Every .astro page under src/pages becomes one <url> entry, so the sitemap
 // stays correct without anyone remembering to update it.
 const pages = Object.keys(import.meta.glob('./**/*.astro'))
 	.map((file) => file.replace(/^\.\//, '').replace(/\.astro$/, ''))
-	.filter((name) => !name.startsWith('404'))
+	.filter((name) => !name.startsWith('404') && !name.includes('['))
 	// Trailing slashes, to match the <link rel="canonical"> each page emits.
 	.map((name) => (name === 'index' ? '' : `${name.replace(/\/index$/, '')}/`))
+	.concat(docs.map((d) => `${route(d.slug).slice(1)}/`))
 	.sort();
 
 export const GET: APIRoute = ({ site }) => {

@@ -24,6 +24,17 @@ npm run test:e2e # Playwright end-to-end tests against the production build
 SSH commit signing through the host agent). It follows the gitops-reverser devcontainer; see
 [`.devcontainer/README.md`](.devcontainer/README.md).
 
+## GitOps Reverser docs
+
+`/reverser` renders Markdown from the [gitops-reverser](https://github.com/ConfigButler/gitops-reverser)
+submodule at build time, unedited. The operator repo is the single source of truth; fix content there.
+
+- Which files get a route: `docs` in [`src/lib/reverser.ts`](src/lib/reverser.ts). Links to any
+  other file open on GitHub at the pinned commit.
+- Clone with `--recurse-submodules`, or run `git submodule update --init`. The build fails without it.
+
+To move to a new release, see [gitops-reverser submodule](#gitops-reverser-submodule).
+
 ## Container image
 
 [`.github/workflows/image.yml`](.github/workflows/image.yml) builds the site into an nginx image
@@ -56,8 +67,11 @@ To move to a new gitops-reverser release:
 git -C external/gitops-reverser fetch --tags
 git -C external/gitops-reverser checkout vX.Y.Z
 git diff --submodule=log         # what changed upstream since the last pin
+npm run reverser:pin             # records the commit in src/lib/reverser-pin.json (for builds without .git)
+npm run build                    # prebuild fails if the pin and the submodule disagree
 # review whether docs or concepts the site relies on changed, then:
-git add external/gitops-reverser && git commit -m "chore: Bump gitops-reverser to vX.Y.Z"
+git add external/gitops-reverser src/lib/reverser-pin.json
+git commit -m "chore: Bump gitops-reverser to vX.Y.Z"
 ```
 
 ## Structure

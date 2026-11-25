@@ -5,7 +5,7 @@ import Icon from '../components/Icon.astro';
 const repos = [
 	{
 		name: 'GitOps Reverser', tag: 'engine', lang: 'Go', langColor: '#3178c6', license: 'Apache-2.0',
-		url: 'https://github.com/ConfigButler/gitops-reverser', label: 'github.com/ConfigButler/gitops-reverser',
+		url: '/reverser', label: 'github.com/ConfigButler/gitops-reverser',
 		desc: 'The open-source engine for turning API activity into clean YAML commits in Git. The reconciliation core behind the durable record.',
 	},
 	{
@@ -53,7 +53,7 @@ const repos = [
 			</div>
 			<div class="grid grid-3">
 				{repos.map((r) => (
-					<a class="repo rv" href={r.url} target="_blank" rel="noopener">
+					<a class="repo rv" href={r.url} target={r.url.startsWith('/') ? undefined : '_blank'} rel="noopener">
 						<div class="repo-top"><Icon name={r.icon ?? 'github'} class="gh" /><span class="pill pill-brass">{r.tag}</span></div>
 						<h3>{r.name}</h3>
 						<p>{r.desc}</p>
